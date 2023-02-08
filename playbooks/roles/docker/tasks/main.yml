@@ -34,6 +34,9 @@
           - apt-transport-https
           - ca-certificates
           - software-properties-common
+          - libsecret-1-0
+          - libsecret-1-dev
+          - libglib2.0-dev
 
     - name: Install Python docker package
       pip:
@@ -55,7 +58,7 @@
     - name: Install docker-compose
       when: "not compose_is_installed.stat.exists or compose_version not in compose_read_version.stdout"
       get_url:
-        url: "https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64"
+        url: "https://github.com/docker/compose/releases/download/v{{ compose_version }}/docker-compose-linux-x86_64"
         dest: "{{ compose_path }}"
         owner: root
         group: root
@@ -75,8 +78,18 @@
 
     - name: Install docker-credential-helpers
       when: "not credential_is_installed.stat.exists or credential_version not in credential_read_version.stdout"
-      unarchive:
-        src: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ credential_version }}/docker-credential-secretservice-v{{ credential_version }}-amd64.tar.gz"
-        remote_src: yes
-        dest: /usr/local/bin
+      get_url:
+        url: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ credential_version }}/docker-credential-secretservice-v{{ credential_version }}.linux-amd64"
+        dest: /usr/local/bin/docker-credential-secretservice
+        owner: root
+        group: root
         mode: +x
+
+    - name: Test run for docker
+      become: yes
+      command: docker run hello-world
+      register: docker_hello_world
+
+    - name: Print result
+      debug:
+        var: docker_hello_world

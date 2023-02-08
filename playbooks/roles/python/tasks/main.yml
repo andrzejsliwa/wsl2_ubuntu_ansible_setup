@@ -15,10 +15,16 @@
   apt:
     pkg:
       - software-properties-common
-      - python3.9
-      - python3.9-distutils
-      - python3.9-venv
+      - "python{{ python_version }}"
+      - "python{{ python_version }}-distutils"
+      - "python{{ python_version }}-venv"
+
+- name: Check if pip3 is installed
+  stat:
+    path: "/usr/local/bin/pip3"
+  register: pip3_is_installed
 
 - name: Re-generate pip
+  when: "not pip3_is_installed.stat.exists"
   become: yes
-  command: "python3.9 -m ensurepip"
+  command: "python{{ python_version }} -m ensurepip"
