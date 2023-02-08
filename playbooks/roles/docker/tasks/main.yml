@@ -1,0 +1,82 @@
+---
+- name: Install packages
+  become: yes
+  become_method: sudo
+  block:
+    - name: Ensure built-in docker is removed
+      apt:
+        pkg:
+          - docker
+          - docker-engine
+          - docker.io
+        state: absent
+
+    - name: Install docker GPG
+      apt_key:
+        id: 0EBFCD88
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Install docker apt repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        update_cache: yes
+
+    - name: Install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+
+    - name: Install dependencies
+      apt:
+        pkg:
+          - curl
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+
+    - name: Install Python docker package
+      pip:
+        name:
+          - docker
+
+    - name: Check if docker-compose is installed
+      stat:
+        path: "{{ compose_path }}"
+      register: compose_is_installed
+
+    - name: Check docker-compose version
+      when: "compose_is_installed.stat.exists"
+      command: "{{ compose_path }} version"
+      register: compose_read_version
+      changed_when: False
+      failed_when: False
+
+    - name: Install docker-compose
+      when: "not compose_is_installed.stat.exists or compose_version not in compose_read_version.stdout"
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64"
+        dest: "{{ compose_path }}"
+        owner: root
+        group: root
+        mode: +x
+
+    - name: Check if docker-credential-helper is installed
+      stat:
+        path: "{{ credential_path }}"
+      register: credential_is_installed
+
+    - name: Check docker-credential-helper version
+      when: "credential_is_installed.stat.exists"
+      command: "{{ credential_path }} version"
+      register: credential_read_version
+      changed_when: False
+      failed_when: False
+
+    - name: Install docker-credential-helpers
+      when: "not credential_is_installed.stat.exists or credential_version not in credential_read_version.stdout"
+      unarchive:
+        src: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ credential_version }}/docker-credential-secretservice-v{{ credential_version }}-amd64.tar.gz"
+        remote_src: yes
+        dest: /usr/local/bin
+        mode: +x

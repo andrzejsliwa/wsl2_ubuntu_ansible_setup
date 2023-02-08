@@ -27,6 +27,7 @@
       - tmux
       - htop
       - jq
+      - unzip
       - git
       - gh
     state: present
