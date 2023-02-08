@@ -1,0 +1,72 @@
+---
+- name: Update packages list
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install updates
+  become: yes
+  apt:
+    upgrade: yes
+
+- name: Enable Systemd
+  become: yes
+  copy:
+    dest: "/etc/wsl.conf"
+    content: |
+      [boot]
+      systemd=true  
+
+- name: Installing Common Apt packages
+  become: yes
+  become_method: sudo
+  apt:
+    pkg:
+      - software-properties-common
+      - vim
+      - tmux
+      - htop
+      - jq
+      - git
+      - gh
+    state: present
+
+- name: Setup Git user name
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
+
+- name: Setup Git user email
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
+
+- name: Setup Git Pull Rebase
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: true
+
+- name: Setup Git Prune on Fetch
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: true
+
+- name: Setup Git Differentiate Moved Lines
+  git_config:
+    name:  diff.colorMoved
+    scope: global
+    value: zebra
+
+- name: Setup Git Default branch to Main
+  git_config:
+    name:  init.defaultBranch
+    scope: global
+    value: main
+
+- name: Shutdown WSL (to restart WSL)
+  command: wsl.exe --shutdown
+  when: 0 > 1
