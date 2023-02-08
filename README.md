@@ -1,5 +1,10 @@
 # This is the provisioning of my personal WSL2 setup (using Ansible).
 
+Reasoning:
+
+I'm a heavy user of MacOSX since 2008, but after so many years with Apple, I have decided to give a chance for Win11 Pro (with WSL2) as a development environment
+So far I'm positively impressed and currently experimenting with using JetBrains Gateway as remote environment on WSL2 and remote vis SSH.
+
 Prerequires:
 
     ./install_ansible.sh
