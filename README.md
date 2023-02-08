@@ -5,6 +5,8 @@ Reasoning:
 I'm a heavy user of MacOSX since 2008, but after so many years with Apple, I have decided to give a chance for Win11 Pro (with WSL2) as a development environment
 So far I'm positively impressed and currently experimenting with using JetBrains Gateway as remote environment on WSL2 and remote vis SSH.
 
+Why Ansible? Because re-creating (I was using a simple make file in the previous iteration: https://github.com/andrzejsliwa/wsl2_ubuntu) from scratch the whole state of the environment is time-consuming, I enjoy idempotency provided by ansible - I'm able to revert my atomic changes quickly
+
 Prerequires:
 
     ./install_ansible.sh
