@@ -1,4 +1,4 @@
-# Provisioning of my personal WSL2 setup.
+# This is the provisioning of my personal WSL2 setup (using Ansible).
 
 Prerequires:
 
