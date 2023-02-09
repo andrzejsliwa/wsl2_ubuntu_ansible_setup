@@ -85,6 +85,13 @@
         group: root
         mode: +x
 
+    - name: Add User to Docker group
+      become: yes
+      user:
+        name: "{{ lookup('env','USER') }}"
+        groups: docker
+        append: yes
+
     - name: Test run for docker
       become: yes
       command: docker run hello-world

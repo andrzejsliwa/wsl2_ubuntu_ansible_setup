@@ -22,7 +22,7 @@ or
 Couple other useful commands:
 
     wsl —shutdown
-    wsl --unregister Ubuntu-22.04
+    wsl --unregister Ubuntu-22.04y
     wsl --install Ubuntu-22.04
     notepad "$env:USERPROFILE/.wslconfig"
 
