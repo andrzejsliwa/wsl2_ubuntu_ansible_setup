@@ -1,0 +1,33 @@
+- name: Check if SAM is installed
+  stat:
+    path: "{{ sam_exec }}"
+  register: sam_is_installed
+
+- name: Check SAM version
+  when: "sam_is_installed.stat.exists"
+  command: "{{ sam_exec }} --version"
+  register: sam_read_version
+  changed_when: False
+  failed_when: False
+
+- set_fact:
+    sam_installed_version: "{{ sam_read_version.stdout | regex_search('SAM CLI, version (.+)', '\\1') | first }}"
+
+- name: Creates tmp directory
+  become: yes
+  file:
+    path: "{{ sam_install_dir }}"
+    state: directory
+
+- name: Download & Unpack Sam
+  when: "not sam_is_installed.stat.exists or sam_version not in sam_installed_version"
+  become: yes
+  unarchive:
+    src: "https://github.com/aws/aws-sam-cli/releases/download/v{{ sam_version }}/aws-sam-cli-linux-x86_64.zip"
+    dest:  "{{ sam_install_dir }}"
+    remote_src: yes
+
+- name: Install Sam
+  when: "not sam_is_installed.stat.exists or sam_version not in sam_installed_version"
+  become: yes
+  command: "{{ sam_install_dir }}/install --update"

@@ -25,31 +25,20 @@
   changed_when: False
   failed_when: False
 
+- set_fact:
+    gradle_installed_version: "{{ gradle_read_version.stdout | regex_search('Gradle (.+)', '\\1') | first }}"
+
 - name: Install Gradle
-  when: "not gradle_is_installed.stat.exists or gradle_version not in gradle_read_version.stdout"
+  when: "not gradle_is_installed.stat.exists or gradle_version not in gradle_installed_version"
   become: yes
   unarchive:
     src: "https://services.gradle.org/distributions/gradle-{{ gradle_version }}-bin.zip"
     dest: "{{ gradle_path }}"
     remote_src: yes
 
-- debug:
-    var: gradle_read_version.stdout
-
-- set_fact:
-    gradle_version: "{{ gradle_read_version.stdout | regex_search('Gradle (.+)', '\\1') | first }}"
-
 - name: Gradle Version
   debug:
     var: gradle_version
-
-- name: Add Java Variables to ~/.bashrc
-  become: yes
-  copy:
-    dest: "/etc/wsl.conf"
-    content: |
-      export JAVA_HOME=$$(dirname $$(dirname $$(readlink -f $$(which javac))))
-      export PATH=/opt/gradle/gradle-7.6/bin:$PATH
 
 - name: Add JAVA vars to ~/.bashrc
   blockinfile:

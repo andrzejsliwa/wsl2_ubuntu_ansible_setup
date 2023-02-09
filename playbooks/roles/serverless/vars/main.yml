@@ -1,0 +1,4 @@
+---
+sam_exec: /usr/local/bin/sam
+sam_install_dir: /tmp/sam-installation
+sam_version: 1.72.0
