@@ -31,3 +31,28 @@
   when: "not sam_is_installed.stat.exists or sam_version not in sam_installed_version"
   become: yes
   command: "{{ sam_install_dir }}/install --update"
+
+
+- name: Check if AWS CLI is installed
+  stat:
+    path: "{{ awscli_exec }}"
+  register: awscli_is_installed
+
+- name: Creates tmp directory
+  become: yes
+  file:
+    path: "{{ awscli_install_dir }}"
+    state: directory
+    
+- name: Download & Unpack AWS CLI
+  when: "not awscli_is_installed.stat.exists"
+  become: yes
+  unarchive:
+    src: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest:  "{{ awscli_install_dir }}"
+    remote_src: yes
+
+- name: Install AWS CLI
+  when: "not awscli_is_installed.stat.exists"
+  become: yes
+  command: "{{ awscli_install_dir }}/aws/install --update"  
