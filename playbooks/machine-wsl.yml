@@ -10,6 +10,8 @@
   - include_role:
       name: python
   - include_role:
-      name: serverless
-  - include_role:
       name: docker
+  - include_role:
+      name: nodejs      
+  - include_role:
+      name: serverless      

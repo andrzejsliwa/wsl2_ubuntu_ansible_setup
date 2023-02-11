@@ -92,6 +92,28 @@
         groups: docker
         append: yes
 
+    - name: Check if deamon.json is created
+      stat:
+        path: "/etc/docker/deamon.json"
+      register: docker_conf_is_installed
+
+    - name: Configure Docker Deamon
+      become: yes
+      #when: "not docker_conf_is_installed.stat.exists"
+      copy:
+        dest: "/etc/docker/deamon.json"
+        content: |
+          { 
+            "max-concurrent-downloads": 1, 
+            "max-download-attempts": 50 
+          }
+
+    - name: restart docker service
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: docker          
+
     - name: Test run for docker
       become: yes
       command: docker run hello-world
