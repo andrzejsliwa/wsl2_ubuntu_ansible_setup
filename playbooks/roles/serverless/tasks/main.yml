@@ -21,7 +21,7 @@
 - name: Install AWS CLI
   when: "not awscli_is_installed.stat.exists"
   become: yes
-  command: "{{ awscli_is_installed }}/aws/install --update"  
+  command: "{{ awscli_install_dir }}/aws/install --update"  
 
 # --------------------------------------------------------------------------
 
