@@ -30,7 +30,7 @@
     path: "{{ sam_exec }}"
   register: sam_is_installed  
 
-  - name: Creates tmp directory
+- name: Creates tmp directory
   become: yes
   file:
     path: "{{ sam_install_dir }}"
