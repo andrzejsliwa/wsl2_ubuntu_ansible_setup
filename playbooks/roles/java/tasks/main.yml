@@ -18,27 +18,13 @@
     path: "{{ gradle_path }}"
     state: directory
 
-- name: Check gradle version
-  when: "gradle_is_installed.stat.exists"
-  command: "{{ gradle_exec }} --version"
-  register: gradle_read_version
-  changed_when: False
-  failed_when: False
-
-- set_fact:
-    gradle_installed_version: "{{ gradle_read_version.stdout | regex_search('Gradle (.+)', '\\1') | first }}"
-
 - name: Install Gradle
-  when: "not gradle_is_installed.stat.exists or gradle_version not in gradle_installed_version"
+  when: "not gradle_is_installed.stat.exists"
   become: yes
   unarchive:
     src: "https://services.gradle.org/distributions/gradle-{{ gradle_version }}-bin.zip"
     dest: "{{ gradle_path }}"
     remote_src: yes
-
-- name: Gradle Version
-  debug:
-    var: gradle_version
 
 - name: Add JAVA vars to ~/.bashrc
   blockinfile:
