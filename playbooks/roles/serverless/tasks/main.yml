@@ -1,4 +1,5 @@
-- name: Check if node.js is installed
+---
+- name: Check if AWS_CLI is installed
   stat:
     path: "{{ awscli_exec }}"
   register: awscli_is_installed
@@ -20,4 +21,30 @@
 - name: Install AWS CLI
   when: "not awscli_is_installed.stat.exists"
   become: yes
-  command: "{{ awscli_install_dir }}/aws/install --update"  
+  command: "{{ awscli_is_installed }}/aws/install --update"  
+
+# --------------------------------------------------------------------------
+
+- name: Check if AWS SAM is installed
+  stat:
+    path: "{{ sam_exec }}"
+  register: sam_is_installed  
+
+  - name: Creates tmp directory
+  become: yes
+  file:
+    path: "{{ sam_install_dir }}"
+    state: directory
+
+- name: Download & Unpack AWS SAM
+  when: "not awscli_is_installed.stat.exists"
+  become: yes
+  unarchive:
+    src: "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip  "
+    dest:  "{{ sam_install_dir }}"
+    remote_src: yes
+
+- name: Install AWS SAM
+  when: "not sam_is_installed.stat.exists"
+  become: yes
+  command: "{{ sam_install_dir }}/install --update"  
