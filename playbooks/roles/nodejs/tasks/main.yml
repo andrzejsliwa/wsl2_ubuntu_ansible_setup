@@ -1,13 +1,22 @@
+---
+- name: Check if node.js is installed
+  stat:
+    path: "/usr/bin/node"
+  register: node_is_installed
+
 - name: Download node.js config
+  when: "not node_is_installed.stat.exists"
   get_url:
     url: https://deb.nodesource.com/setup_18.x
     dest: /tmp/nodesource_setup.sh
 
 - name: Configure node.js
+  when: "not node_is_installed.stat.exists"
   become: yes
   command: "bash /tmp/nodesource_setup.sh" 
 
 - name: Installing node.js packages
+  when: "not node_is_installed.stat.exists"
   become: yes
   become_method: sudo
   apt:
