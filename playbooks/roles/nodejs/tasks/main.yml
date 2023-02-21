@@ -22,3 +22,15 @@
   apt:
     pkg:
       - nodejs
+
+- name: Configure npm for globals
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: ~/.bashrc
+    marker_begin: "begin NPM ansible marker"
+    marker_end: "end NPM ansible marker"
+    content: |
+      mkdir -p ~/.npm-global
+      npm config set prefix '~/.npm-global'
+      export PATH=~/.npm-global/bin:$PATH }}/bin:$PATH

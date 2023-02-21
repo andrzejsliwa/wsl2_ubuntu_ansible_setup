@@ -74,6 +74,32 @@
     scope: global
     value: main
 
+- name: Configure private aliases
+  become: yes
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: /etc/sysctl.conf 
+    marker_begin: "begin CUSTOM ansible marker"
+    marker_end: "end CUSTOM ansible marker"
+    content: |
+      vm.overcommit_memory = 1
+
+- name: Enable thp globally
+  become: yes
+  command: echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+
+- name: Configure private aliases
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: ~/.bashrc
+    marker_begin: "begin CUSTOM BASHRC ansible marker"
+    marker_end: "end CUSTOM BASHRC ansible marker"
+    content: |
+      alias ..="cd .."
+
 - name: Shutdown WSL (to restart WSL)
   when: "not wsl_conf_is_installed.stat.exists"
   command: wsl.exe --shutdown
