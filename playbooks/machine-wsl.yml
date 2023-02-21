@@ -9,8 +9,8 @@
       name: java
   - include_role:
       name: python
-  - include_role:
-      name: docker
+  # - include_role:
+  #     name: docker
   - include_role:
       name: nodejs      
   - include_role:

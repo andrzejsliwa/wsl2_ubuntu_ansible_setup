@@ -13,11 +13,11 @@ Prerequires:
 
 Install:
 
-    ./run_ansible.sh
+    ./run_dialog.sh
 
 or
 
-    ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K 
+    ./run.sh
 
 Couple other useful commands:
 
@@ -26,7 +26,7 @@ Couple other useful commands:
     wsl --install Ubuntu-22.04
     notepad "$env:USERPROFILE/.wslconfig"
 
-content of `.wslconfig`
+content of `.wslconfig`:
 ```properties
 [wsl2]
 memory=32GB
