@@ -1,5 +1,5 @@
 ---
-compose_version: "2.16.0"
+compose_version: "2.23.0"
 compose_path: /usr/local/bin/docker-compose
 credential_version: "0.7.0"
 credential_path: /usr/local/bin/docker-credential-secretservice

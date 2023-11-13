@@ -12,17 +12,9 @@
         name: DOTFILES
     - include_role:
         name: SSH
-  #   - include_role:
-  #       name: rvm
-  #   - include_role:
-  #       name: java
     - include_role:
         name: PYTHON
-    # - include_role:
-  #   #     name: docker
-  #   - include_role:
-  #       name: nodejs
-  #   - include_role:
-  #       name: serverless
+    - include_role:
+        name: DOCKER
     - include_role:
         name: SPORTINGSOLUTION
