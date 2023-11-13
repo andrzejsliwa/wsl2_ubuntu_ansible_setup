@@ -7,6 +7,10 @@
     - include_role:
         name: BOOTSTRAPPING
     - include_role:
+        name: HOMEBREW
+    - include_role:
+        name: DOTFILES
+    - include_role:
         name: SSH
   #   - include_role:
   #       name: rvm
