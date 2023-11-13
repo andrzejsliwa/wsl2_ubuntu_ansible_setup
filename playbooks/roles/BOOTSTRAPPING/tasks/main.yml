@@ -1,13 +1,13 @@
 ---
 - name: Update packages list
-  become: yes
+  become: true
   apt:
     update_cache: yes
   tags:
     - apt
 
 - name: Install updates
-  become: yes
+  become: true
   apt:
     upgrade: yes
   tags:
@@ -21,7 +21,7 @@
     - wsl
 
 - name: Enable Systemd
-  become: yes
+  become: true
   when: "not wsl_conf_is_installed.stat.exists"
   copy:
     dest: "/etc/wsl.conf"
@@ -32,7 +32,7 @@
     - system
 
 - name: Installing Common Apt packages
-  become: yes
+  become: true
   become_method: sudo
   apt:
     pkg:
@@ -137,7 +137,7 @@
     - git
 
 - name: Configure private aliases
-  become: yes
+  become: true
   blockinfile:
     state: present
     insertafter: EOF
@@ -148,7 +148,7 @@
       vm.overcommit_memory = 1
 
 - name: Enable thp globally
-  become: yes
+  become: true
   command: echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
 

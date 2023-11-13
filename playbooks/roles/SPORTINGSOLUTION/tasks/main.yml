@@ -1,6 +1,6 @@
 ---
 # - name: AWS-AZURE-LOGIN | HOMEBREW | Install nodeJS
-#   become: yes
+#   become: true
 #   community.general.homebrew:
 #     name: "{{ item }}"
 #     state: present

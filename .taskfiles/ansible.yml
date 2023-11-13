@@ -1,0 +1,14 @@
+---
+version: '3'
+
+tasks:
+
+  all:
+   desc: Run the entire Ansible configuration for WSL2
+   cmds:
+    - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
+
+  aws:
+   desc: AWS CLI tasks
+   cmds:
+    - ansible-playbook playbooks/machine-wsl.yml --tags "aws"  -i hosts.yml -K

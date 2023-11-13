@@ -12,8 +12,10 @@
         name: DOTFILES
     - include_role:
         name: SSH
-    - include_role:
-        name: PYTHON
+    # - include_role:
+    #     name: AWS
+    # - include_role:
+    #     name: PYTHON
     - include_role:
         name: DOCKER
     - include_role:

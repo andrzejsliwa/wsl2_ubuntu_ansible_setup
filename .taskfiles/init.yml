@@ -1,0 +1,14 @@
+---
+version: '3'
+
+tasks:
+
+  install-ansible:
+   desc: Install Ansible
+   cmds:
+    - ./install_ansible.sh
+
+  install-brew:
+   desc: Install Homebrew
+   cmds:
+    - ./install_brew.sh

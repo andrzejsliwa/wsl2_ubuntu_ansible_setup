@@ -1,16 +1,16 @@
 ---
 - name: Add python repository to apt
-  become: yes
+  become: true
   apt_repository:
     repo: ppa:deadsnakes/ppa
 
 - name: Update packages list
-  become: yes
+  become: true
   apt:
     update_cache: yes
 
 - name: Installing Python
-  become: yes
+  become: true
   become_method: sudo
   apt:
     pkg:
@@ -26,5 +26,5 @@
 
 - name: Re-generate pip
   when: "not pip3_is_installed.stat.exists"
-  become: yes
+  become: true
   command: "python{{ python_version }} -m ensurepip"

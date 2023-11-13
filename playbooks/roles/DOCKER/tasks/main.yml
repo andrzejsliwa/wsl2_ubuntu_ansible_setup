@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  become: yes
+  become: true
   become_method: sudo
   block:
     - name: Ensure built-in docker is removed
@@ -86,7 +86,7 @@
         mode: +x
 
     - name: Add User to Docker group
-      become: yes
+      become: true
       user:
         name: "{{ lookup('env','USER') }}"
         groups: docker
@@ -98,24 +98,24 @@
       register: docker_conf_is_installed
 
     - name: Configure Docker Deamon
-      become: yes
+      become: true
       #when: "not docker_conf_is_installed.stat.exists"
       copy:
         dest: "/etc/docker/deamon.json"
         content: |
-          { 
-            "max-concurrent-downloads": 1, 
-            "max-download-attempts": 50 
+          {
+            "max-concurrent-downloads": 1,
+            "max-download-attempts": 50
           }
 
     - name: restart docker service
       systemd:
         state: restarted
         daemon_reload: yes
-        name: docker          
+        name: docker
 
     - name: Test run for docker
-      become: yes
+      become: true
       command: docker run hello-world
       register: docker_hello_world
 
