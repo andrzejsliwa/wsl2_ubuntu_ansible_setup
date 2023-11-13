@@ -1,3 +1,5 @@
 ---
 git_user_name: "Fabrice Semti"
 git_user_email: "fabrice@fabricesemti.com"
+git_ignore_patterns:
+  - .vscode/

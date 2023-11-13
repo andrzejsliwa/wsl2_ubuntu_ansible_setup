@@ -3,16 +3,22 @@
   become: yes
   apt:
     update_cache: yes
+  tags:
+    - apt
 
 - name: Install updates
   become: yes
   apt:
     upgrade: yes
+  tags:
+    - apt
 
 - name: Check if wsl.conf is installed
   stat:
     path: "/etc/wsl.conf"
   register: wsl_conf_is_installed
+  tags:
+    - wsl
 
 - name: Enable Systemd
   become: yes
@@ -22,6 +28,8 @@
     content: |
       [boot]
       systemd=true
+  tags:
+    - system
 
 - name: Installing Common Apt packages
   become: yes
@@ -37,56 +45,71 @@
       - git
       - gh
     state: present
+  tags:
+    - apt
 
 - name: Setup Git user name
   git_config:
     name: user.name
     scope: global
     value: "{{ git_user_name }}"
+  tags:
+    - git
 
 - name: Setup Git user email
   git_config:
     name: user.email
     scope: global
     value: "{{ git_user_email }}"
+  tags:
+    - git
 
 - name: Setup Git Pull Rebase
   git_config:
     name: pull.rebase
     scope: global
     value: true
+  tags:
+    - git
 
 - name: Setup Git Prune on Fetch
   git_config:
     name: pull.rebase
     scope: global
     value: true
+  tags:
+    - git
 
 - name: Setup Git Differentiate Moved Lines
   git_config:
     name:  diff.colorMoved
     scope: global
     value: zebra
+  tags:
+    - git
 
 - name: Setup Git Default branch to Main
   git_config:
     name:  init.defaultBranch
     scope: global
     value: main
+  tags:
+    - git
 
 - name:  Create '.gitignore_global' file if not exists
   ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.gitignore_global"
   register: gitignore_stat
+  tags:
+    - git
 
 - name:  Create '.gitignore_global' file
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.gitignore_global"
     state: touch
+  when: not gitignore_stat.stat.exists
   tags:
     - git
-  when: not gitignore_stat.stat.exists
-
 
 - name:  Add gitignores to '.gitignore_global'
   ansible.builtin.lineinfile:
@@ -134,3 +157,5 @@
 - name: Shutdown WSL (to restart WSL)
   when: "not wsl_conf_is_installed.stat.exists"
   command: wsl.exe --shutdown
+  tags:
+    - wsl
