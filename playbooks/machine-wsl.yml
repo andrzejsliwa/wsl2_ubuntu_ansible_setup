@@ -3,17 +3,17 @@
   tasks:
 
     - include_role:
-        name: links
+        name: SYMLINKS
     - include_role:
-        name: bootstraping
+        name: BOOTSTRAPPING
     - include_role:
-        name: ssh
+        name: SSH
   #   - include_role:
   #       name: rvm
   #   - include_role:
   #       name: java
     - include_role:
-        name: python
+        name: PYTHON
     # - include_role:
   #   #     name: docker
   #   - include_role:

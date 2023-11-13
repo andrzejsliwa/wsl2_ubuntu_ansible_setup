@@ -1,12 +1,12 @@
 ---
-- name: SSH | Check '~/.ssh' folder's permissions
+- name:  Check '~/.ssh' folder's permissions
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.ssh"
   register: ssh_folder_stat
   tags:
     - ssh
 
-- name: SSH | Correct '~/.ssh' folder's permissions
+- name:  Correct '~/.ssh' folder's permissions
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.ssh"
     recurse: yes
@@ -16,7 +16,7 @@
   tags:
     - ssh
 
-- name: SSH | Correct SSH config and key file permissions
+- name:  Correct SSH config and key file permissions
   ansible.builtin.file:
     path: "{{ item }}"
     mode: '0600'
