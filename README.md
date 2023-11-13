@@ -13,22 +13,20 @@ Prerequires:
 
 Install:
 
-    ./run_dialog.sh
-
-or
-
     ./run.sh
+
+<!-- TODO:  add Taskfile.yml   -->
 
 Couple other useful commands:
 
     wsl —shutdown
-    wsl --unregister Ubuntu-22.04y
+    wsl --unregister Ubuntu-22.04
     wsl --install Ubuntu-22.04
     notepad "$env:USERPROFILE/.wslconfig"
 
-content of `.wslconfig`:
+<!-- content of `.wslconfig`:
 ```properties
 [wsl2]
 memory=32GB
 processors=6
-```
+``` -->
