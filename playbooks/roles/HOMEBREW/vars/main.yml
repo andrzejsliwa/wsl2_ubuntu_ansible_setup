@@ -5,3 +5,5 @@ homebrew_packages:
     - nodejs
     - awscli
     - pre-commit
+    - tfenv
+    - tgenv
