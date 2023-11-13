@@ -21,7 +21,7 @@
     dest: "/etc/wsl.conf"
     content: |
       [boot]
-      systemd=true  
+      systemd=true
 
 - name: Installing Common Apt packages
   become: yes
@@ -29,7 +29,7 @@
   apt:
     pkg:
       - software-properties-common
-      - vim
+      # - vim
       - tmux
       - htop
       - jq
@@ -74,12 +74,43 @@
     scope: global
     value: main
 
+- name:  Create '.gitignore_global' file if not exists
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+  register: gitignore_stat
+
+- name:  Create '.gitignore_global' file
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+    state: touch
+  tags:
+    - git
+  when: not gitignore_stat.stat.exists
+
+
+- name:  Add gitignores to '.gitignore_global'
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+    line: "{{ item }}"
+    state: present
+  loop: "{{ git_ignore_patterns }}"
+  tags:
+    - git
+
+- name:  Set excludes
+  ansible.builtin.git_config:
+    scope: global
+    name: core.excludesfile
+    value: "{{ ansible_user_dir }}/.gitignore_global"
+  tags:
+    - git
+
 - name: Configure private aliases
   become: yes
   blockinfile:
     state: present
     insertafter: EOF
-    dest: /etc/sysctl.conf 
+    dest: /etc/sysctl.conf
     marker_begin: "begin CUSTOM ansible marker"
     marker_end: "end CUSTOM ansible marker"
     content: |
