@@ -6,15 +6,15 @@
         name: links
     - include_role:
         name: bootstraping
-    #   - include_role:
-    #       name: rvm
-    #   - include_role:
-    #       name: java
-    #   - include_role:
-    #       name: python
-    #   # - include_role:
-    #   #     name: docker
-    #   - include_role:
-    #       name: nodejs
-    #   - include_role:
-    #       name: serverless
+  #   - include_role:
+  #       name: rvm
+  #   - include_role:
+  #       name: java
+    - include_role:
+        name: python
+    # - include_role:
+  #   #     name: docker
+  #   - include_role:
+  #       name: nodejs
+  #   - include_role:
+  #       name: serverless
