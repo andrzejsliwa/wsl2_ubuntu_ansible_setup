@@ -44,9 +44,17 @@
       - unzip
       - git
       - gh
+      - libgtk-3-dev
+      - libnotify-dev
+      - libgconf-2-4
+      - libnss3
+      - libxss1
+      - libasound2
     state: present
   tags:
     - apt
+
+
 
 - name: Setup Git user name
   git_config:

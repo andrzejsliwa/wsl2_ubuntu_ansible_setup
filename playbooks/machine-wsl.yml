@@ -24,3 +24,5 @@
   #       name: nodejs
   #   - include_role:
   #       name: serverless
+    - include_role:
+        name: SPORTINGSOLUTION

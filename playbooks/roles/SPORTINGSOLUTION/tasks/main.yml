@@ -1,0 +1,17 @@
+---
+# - name: AWS-AZURE-LOGIN | HOMEBREW | Install nodeJS
+#   become: yes
+#   community.general.homebrew:
+#     name: "{{ item }}"
+#     state: present
+#   with_items:
+#     - nodejs
+
+- name: AWS-AZURE-LOGIN | NPM | Install 'aws-azure-login' CLI
+  npm:
+    name: aws-azure-login
+    global: yes
+    unsafe_perm: yes
+  tags:
+    - sporting
+    - aws-azure
