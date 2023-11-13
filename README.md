@@ -9,6 +9,7 @@ Why Ansible? Because re-creating (I was using a simple make file in the previous
 Prerequires:
 
     ./install_ansible.sh
+    ./install_brew.sh
 
 Install:
 
