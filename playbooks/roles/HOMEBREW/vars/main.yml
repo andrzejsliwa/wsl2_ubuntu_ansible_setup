@@ -4,6 +4,7 @@ homebrew_packages:
     - starship
     - nodejs
     - awscli
+    - python
     - pre-commit
     - tfenv
     - tgenv
