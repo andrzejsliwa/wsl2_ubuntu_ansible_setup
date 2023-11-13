@@ -1,13 +1,6 @@
 ---
-# - name: AWS-AZURE-LOGIN | HOMEBREW | Install nodeJS
-#   become: true
-#   community.general.homebrew:
-#     name: "{{ item }}"
-#     state: present
-#   with_items:
-#     - nodejs
 
-- name: AWS-AZURE-LOGIN | NPM | Install 'aws-azure-login' CLI
+- name: Install 'aws-azure-login' CLI
   npm:
     name: aws-azure-login
     global: yes
@@ -15,3 +8,12 @@
   tags:
     - sporting
     - aws-azure
+
+- name: Copy Sporting SSO config
+  copy:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_env.HOME }}/.aws/config"
+  tags:
+    - dotfiles
+    - sporting
+    - aws-azure-

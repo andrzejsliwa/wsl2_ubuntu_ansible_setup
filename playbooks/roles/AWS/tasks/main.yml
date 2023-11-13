@@ -1,39 +1,5 @@
 ---
-- name: Check if AWS_CLI is installed
+- name: Use Pip3 to install awscli
   ansible.builtin.pip:
     name: awscli
-  # - python3 -m pip install awscli
-
-# --------------------------------------------------------------------------
-
-# - name: Check if AWS SAM is installed
-#   stat:
-#     path: "{{ sam_exec }}"
-#   register: sam_is_installed
-#   tags:
-#     - aws
-
-# - name: Creates tmp directory
-#   become: true
-#   file:
-#     path: "{{ sam_install_dir }}"
-#     state: directory
-#   tags:
-#     - aws
-
-# - name: Download & Unpack AWS SAM
-#   when: "not awscli_is_installed.stat.exists"
-#   become: true
-#   unarchive:
-#     src: "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip  "
-#     dest:  "{{ sam_install_dir }}"
-#     remote_src: yes
-#   tags:
-#     - aws
-
-# - name: Install AWS SAM
-#   when: "not sam_is_installed.stat.exists"
-#   become: true
-#   command: "{{ sam_install_dir }}/install --update"
-#   tags:
-#     - aws
+    executable: pip3

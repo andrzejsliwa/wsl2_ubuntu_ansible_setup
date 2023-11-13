@@ -1,0 +1,7 @@
+[default]
+azure_tenant_id=sportingsolutions.com
+azure_app_id_uri=a03f7e67-37b1-4af5-b8aa-55035c9168e8
+azure_default_username=fsemti@sportinggroup.co.uk
+azure_default_role_arn=
+azure_default_duration_hours=6
+azure_default_remember_me=true
