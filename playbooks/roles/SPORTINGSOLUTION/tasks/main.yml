@@ -16,4 +16,11 @@
   tags:
     - dotfiles
     - sporting
-    - aws-azure-
+    - aws-azure
+
+- name: Ensure you can `sshuttle` to OY
+  copy:
+    src: "{{ role_path }}/files/oy-sshuttle"
+    dest: "{{ ansible_env.HOME }}/bin/oy-sshuttle"
+  tags:
+    - dotfiles

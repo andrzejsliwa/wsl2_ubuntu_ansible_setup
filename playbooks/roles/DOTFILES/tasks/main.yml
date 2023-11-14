@@ -1,9 +1,17 @@
 ---
 
-- name: Ensure directory exists
+- name: Ensure `.config` directory exists
   become: false
   file:
     path: "{{ ansible_env.HOME }}/.config"
+    state: directory
+  tags:
+    - dotfiles
+
+- name: Ensure `bin` directory exists
+  become: false
+  file:
+    path: "{{ ansible_env.HOME }}/bin"
     state: directory
   tags:
     - dotfiles
