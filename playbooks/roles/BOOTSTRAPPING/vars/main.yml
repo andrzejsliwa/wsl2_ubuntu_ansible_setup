@@ -19,3 +19,5 @@ apt_packages:
   - libxss1
   - libasound2
   - python-is-python3
+  - openssh-server
+  - sshuttle
