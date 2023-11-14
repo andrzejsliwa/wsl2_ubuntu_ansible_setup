@@ -30,8 +30,7 @@
   command: "python{{ python_version }} -m ensurepip"
 
 - name: Install additional pip3 modules
+  with_items: "{{  pip_packages }}"
   ansible.builtin.pip:
-    name:
-      - pywinrm
-      - requests
+    name: "{{ item  }}"
     executable: pip3

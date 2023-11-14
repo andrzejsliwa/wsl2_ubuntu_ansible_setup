@@ -1,2 +1,6 @@
 ---
 python_version: "3.9"
+pip_packages:
+      - pywinrm
+      - requests
+      - pykerberos
