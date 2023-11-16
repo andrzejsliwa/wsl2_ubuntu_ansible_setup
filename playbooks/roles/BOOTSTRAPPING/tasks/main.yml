@@ -37,12 +37,9 @@
   become_method: sudo
   apt:
     pkg: "{{  apt_packages  }}"
-
     state: present
   tags:
     - apt
-
-
 
 - name: Setup Git user name
   git_config:
@@ -138,7 +135,6 @@
 - name: Enable thp globally
   become: true
   command: echo never > /sys/kernel/mm/transparent_hugepage/enabled
-
 
 - name: Configure private aliases
   blockinfile:
