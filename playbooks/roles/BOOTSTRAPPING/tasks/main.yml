@@ -21,7 +21,7 @@
   tags:
     - wsl
 
-- name: Enable Systemd
+- name: Enable Systemd and Fix networking - https://gist.github.com/coltenkrauter/608cfe02319ce60facd76373249b8ca6
   become: true
   when: "not wsl_conf_is_installed.stat.exists"
   copy:
@@ -29,6 +29,8 @@
     content: |
       [boot]
       systemd=true
+      [network]
+      generateResolvConf = false
   tags:
     - system
 
