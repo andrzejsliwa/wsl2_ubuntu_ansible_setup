@@ -1,89 +1,280 @@
+
 # ~/.config/starship.toml
 
-[battery]
-full_symbol = "🔋"
-charging_symbol = "🔌"
-discharging_symbol = "⚡"
+# Refresh
+#eval "$(starship init bash)"
 
-[[battery.display]]
-threshold = 30
-style = "bold red"
+# 🚀🎯✘⇡⇣⇕⎈☸🐫▶󰨑↯󰈤•󰛥🗑👅🏳😰😵🥺😂🍒🏃‍♂️🔋⚡🕙🗓🍺➜☁️🅰💀⛵🔒🐋🙃🤖🌊🐍😬👍👋🔥💥🌍🦀🅢📦
 
-[character]
-error_symbol = "[✖](bold red) "
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
 
-[cmd_duration]
-min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
-format = " took [$duration]($style)"
+format = """
+[](fg:#33658A)\
+[$os](bg:#33658A)\
+[](fg:#06969A bg:#33658A)\
+[](fg:#86BBD8 bg:#06969A)\
+[($status)](bg:#86BBD8)\
+[$character](bg:#86BBD8)\
+[](fg:#86BBD8)\
+[](#86BBD8)\
+$env_var$username$hostname\
+[](fg:#86BBD8 bg:#D8BB86)\
+$directory\
+[](fg:#D8BB86 bg:#FCA17D)\
+$git_branch\
+$git_status\
+[](fg:#FCA17D bg:#86BBD8)\
+$c\
+$dotnet\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+[](fg:#86BBD8 bg:#06969A)\
+$docker_context\
+[](fg:#06969A bg:#33658A)\
+$time\
+[($shell)](bg:#33658A)\
+[ ](fg:#33658A)\
+"""
 
-[directory]
-truncation_length = 5
-format = "[$path]($style)[$lock_symbol]($lock_style) "
+# A continuation prompt that displays right half-circle and filled-in arrow
+continuation_prompt = "[ ](bg:#33658A)[](fg:#33658A)"
 
-[git_branch]
-format = " [$symbol$branch]($style) "
-symbol = "🍣 "
-style = "bold yellow"
+# Disable the blank line at the start of the prompt
+# add_newline = false
 
-[git_commit]
-commit_hash_length = 8
-style = "bold white"
+# Replace the "❯" symbol in the prompt with "➜"
+[character] # The name of the module we are configuring is "character"
+success_symbol = "[](fg:green bg:#86BBD8)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[✘](fg:red bg:#86BBD8)"
 
-[git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
+# # Disable the package module, hiding it from the prompt completely
+# [package]
+# disabled = true
 
-[git_status]
-conflicted = "⚔️ "
-ahead = "🏎️ 💨 ×${count}"
-behind = "🐢 ×${count}"
-diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
-untracked = "🛤️  ×${count}"
-stashed = "📦 "
-modified = "📝 ×${count}"
-staged = "🗃️  ×${count}"
-renamed = "📛 ×${count}"
-deleted = "🗑️  ×${count}"
-style = "bright-white"
-format = "$all_status$ahead_behind"
+[env_var.STY]
+# variable = 'STY'
+style = "bg:#86BBD8 fg:#000000"
+format = "[ $env_value ]($style)"
+# default=""
+# disabled = true
 
 [hostname]
-ssh_only = false
-format = "<[$hostname]($style)>"
+ssh_only = true
+style = "bg:#86BBD8 fg:#000000"
+format = "[>< $hostname ]($style)" #
 trim_at = "-"
-style = "bold dimmed white"
-disabled = true
+# disabled = true
+
+# You can also replace your username with a neat symbol like  to save some space
+[username]
+show_always = true
+style_user = "bg:#86BBD8 fg:#000000"
+style_root = "bold bg:#86BBD8 fg:#000000"
+format = '[ ($user) ]($style)'
+
+[directory]
+style = "bg:#D8BB86 fg:#000000"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = "Doc " #
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+[aws]
+symbol = "  "
+style = "bg:#06969A"
+format = '[[ $symbol $context ](bg:#06969A)]($style) $path'
+
+[buf]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[c]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[conda]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[dart]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[docker_context]
+symbol = "🐳 "
+style = "bg:#06969A"
+format = '[[ $symbol $context ](bg:#06969A)]($style) $path'
+
+[dotnet]
+symbol = " "
+style = "fg:#000000 bg:#86BBD8"
+format = '[$symbol ](bold fg:#33658A bg:#86BBD8)[$version ]($style)'
+
+[elixir]
+symbol = "💧 "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[elm]
+symbol = "🌳 "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[git_branch]
+symbol = "☊"
+style = "bg:#FCA17D"
+format = '[[ $symbol $branch ](fg:#000000 bg:#FCA17D)]($style)'
+
+[git_status]
+style = "bg:#FCA17D"
+format = '[[($all_status$ahead_behind )](fg:#000000 bg:#FCA17D)]($style)'
+ahead = "⇡ $count "
+behind = "⇣ $count "
+deleted = "🗑 $count "
+diverged = " $count " #
+stashed = "📦 $count "
+modified = " $count " #
+staged = '[ $count ](green)'
+renamed = " $count "
+untracked = "󰙌 ‍$count " # 🤷󱍊
+
+[golang]
+symbol = "🐹 "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[haskell]
+symbol = "λ "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[hg_branch]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[java]
+symbol = "☕ "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
 [julia]
-format = "[$symbol$version]($style) "
 symbol = "ஃ "
-style = "bold green"
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[lua]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
 [memory_usage]
-format = "$symbol[${ram}( | ${swap})]($style) "
-threshold = 70
-style = "bold dimmed white"
-disabled = false
+symbol = " " # 
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
-[package]
-disabled = true
+[meson]
+symbol = "M "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
-[python]
-format = "[$symbol$version]($style) "
-style = "bold green"
+[nim]
+symbol = "👑 "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
-[rust]
-format = "[$symbol$version]($style) "
-style = "bold green"
-
-[time]
-time_format = "%T"
-format = "🕙 $time($style) "
-style = "bright-white"
-disabled = false
-
-[username]
-style_user = "bold dimmed blue"
-show_always = false
+[nix_shell]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
 
 [nodejs]
-format = "via [🤖 $version](bold green) "
+symbol = "󰎙 " #󰎙 🔷
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[os]
+format = "[ $symbol]($style)"#
+style = "fg:#ffffff bg:#33658A"
+disabled = false
+
+[os.symbols]
+Mint = " "#🌿
+Windows = " "
+
+[package]
+symbol = " " #
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[python]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[rlang]
+symbol = "R "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[ruby]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[rust]
+symbol = "🦀"
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[scala]
+symbol = " "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[shell]
+disabled=false
+bash_indicator = 'ba'
+fish_indicator='fi' #
+powershell_indicator = 'ps'
+unknown_indicator = '' #
+style = "fg:#ffffff bg:#33658A"
+
+[spack]
+symbol = "S "
+style = "fg:#33658A bg:#86BBD8"
+format = '[$symbol $version ]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format # %T for seconds
+style = "bg:#33658A"
+format = '[[  $time ](fg:#ffffff bg:#33658A)]($style)'
+
+[status]
+disabled = false
+format = '[\[$status:$common_meaning\] ](fg:red bg:#86BBD8)'
