@@ -17,6 +17,6 @@
     - include_role:
         name: DOCKER
     - include_role:
-        name: SPORTINGSOLUTION
+        name: SPORTINGSOLUTION      
     - include_role:
         name: AWS
