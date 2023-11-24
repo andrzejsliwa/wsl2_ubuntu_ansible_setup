@@ -1,9 +1,10 @@
 homebrew_packages:
-    - go-task
-    - direnv
-    - starship
-    - nodejs
     - awscli
+    - bat
+    - direnv    
+    - go-task
+    - nodejs
+    - starship
     - python
     - pre-commit
     - tfenv
