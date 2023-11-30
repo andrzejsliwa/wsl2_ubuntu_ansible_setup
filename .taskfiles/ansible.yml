@@ -42,6 +42,11 @@ tasks:
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "git"  -i hosts.yml -K
 
+  python:
+    desc: Install Python packages
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "python"  -i hosts.yml -K
+
   ssh:
     desc: SSH client and server configuration
     cmds:

@@ -20,6 +20,14 @@
                   name: BREW
         tags: brew
 
+      - name: Python package management tasks
+        become: true
+        become_method: sudo
+        block:
+            - include_role:
+                  name: PYTHON
+        tags: python
+
       - name: WSL2 configuration tasks
         block:
             - include_role:
@@ -57,15 +65,6 @@
             - include_role:
                   name: SSH
         tags: ssh
-
-      # - include_role:
-      #       name: SSH
-
-      # - include_role:
-      #       name: PYTHON
-
-      # - include_role:
-      #       name: DOCKER
 
       # - include_role:
       #       name: SPORTINGSOLUTION

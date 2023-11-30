@@ -1,4 +1,5 @@
 ---
+
 - name: Add python repository to apt
   become: true
   apt_repository:
@@ -29,6 +30,10 @@
   when: "not pip3_is_installed.stat.exists"
   become: true
   command: "python{{ python_version }} -m ensurepip"
+
+# - name: Upgrade pip
+#   become: true
+#   command: "python{{ python_version }} -m pip install --upgrade pip"
 
 - name: Install additional pip3 modules
   with_items: "{{  pip_packages }}"
