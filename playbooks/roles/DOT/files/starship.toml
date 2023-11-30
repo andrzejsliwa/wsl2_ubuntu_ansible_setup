@@ -8,14 +8,13 @@ error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
 [username]
-format = '\[[$user]($style)\] '
+format = '\[[$user](teal)\] '
 show_always = true
-style = "bold lavender"
 
 [directory]
 truncation_length = 4
 # Catppuccin 'lavender'
-style = "bold blue"
+style = "green"
 
 # palette tables should be last in the config ⚓️
 [palettes.catppuccin_macchiato]
