@@ -8,7 +8,12 @@ tasks:
    cmds:
     - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
 
-  aws:
-   desc: AWS CLI tasks
+  list:
+    desc: List Ansible tags
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --list-tags
+
+  apt:
+   desc: Tasks utilising `apt` package manager
    cmds:
-    - ansible-playbook playbooks/machine-wsl.yml --tags "aws"  -i hosts.yml -K
+    - ansible-playbook playbooks/machine-wsl.yml --tags "apt"  -i hosts.yml -K
