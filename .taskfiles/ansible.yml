@@ -17,12 +17,27 @@ tasks:
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "apt"  -i hosts.yml -K
 
-  wsl:
-    desc: Tasks configuring `wsl`
+  bash:
+    desc: Configuration of 'bash' and related files
     cmds:
-      - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K
+      - ansible-playbook playbooks/machine-wsl.yml --tags "bash"  -i hosts.yml
+
+  docker:
+    desc: Tasks configuring `Docker`
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "doc"  -i hosts.yml -K
 
   git:
     desc: Tasks configuring `Git` client
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "git"  -i hosts.yml -K
+
+  sys:
+    desc: Tasks configuring the Linux system in general
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "sys"  -i hosts.yml -K
+
+  wsl:
+    desc: Tasks configuring `wsl`
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K

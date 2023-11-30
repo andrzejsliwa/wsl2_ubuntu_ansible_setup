@@ -1,0 +1,9 @@
+private_aliases:
+  - name: ".."
+    command: "cd .."
+  - name: "cat"
+    command: "bat"  # cat is now bat
+  - name: "l"
+    command: "exa"
+  - name: "ll"
+    command: "exa -lah"

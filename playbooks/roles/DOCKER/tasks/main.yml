@@ -1,7 +1,6 @@
 ---
 - name: Install packages
-  become: true
-  become_method: sudo
+
   block:
     - name: Ensure built-in docker is removed
       apt:
@@ -98,7 +97,7 @@
       register: docker_conf_is_installed
 
     - name: Configure Docker Deamon
-      become: true
+      # become: true
       #when: "not docker_conf_is_installed.stat.exists"
       copy:
         dest: "/etc/docker/deamon.json"
@@ -115,10 +114,10 @@
         name: docker
 
     - name: Test run for docker
-      become: true
+      # become: true
       command: docker run hello-world
       register: docker_hello_world
 
     - name: Print result
       debug:
-        var: docker_hello_world
+        var: docker_hello_world.stdout

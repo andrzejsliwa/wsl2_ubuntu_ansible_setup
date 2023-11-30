@@ -19,8 +19,25 @@
                   name: GIT
         tags: git
 
-      # - include_role:
-      #       name: BOOTSTRAPPING
+      - name: Generic ssytem configuration tasks
+        block:
+            - include_role:
+                  name: SYSTEM
+        tags: sys
+
+      - name: Bash shell configuration tasks
+        block:
+            - include_role:
+                  name: BASH
+        tags: bash
+
+      - name: Docker engine configuration
+        become: true
+        become_method: sudo
+        block:
+            - include_role:
+                  name: DOCKER
+        tags: doc
 
       # - include_role:
       #       name: HOMEBREW

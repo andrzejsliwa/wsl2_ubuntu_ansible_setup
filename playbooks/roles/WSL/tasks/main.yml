@@ -20,3 +20,7 @@
     src: "/mnt/c/PROJECTS"
     dest: "{{ ansible_user_dir }}/projects"
     state: link
+
+- name: Shutdown WSL (to restart WSL)
+  when: "not wsl_conf_is_installed.stat.exists"
+  command: wsl.exe --shutdown

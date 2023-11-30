@@ -1,0 +1,12 @@
+---
+- name: Configure private aliases
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "~/.bashrc"
+    marker_begin: "begin CUSTOM BASHRC ansible marker"
+    marker_end: "end CUSTOM BASHRC ansible marker"
+    content: |
+      {% for alias in private_aliases %}
+      alias {{ alias.name }}="{{ alias.command }}"
+      {% endfor %}
