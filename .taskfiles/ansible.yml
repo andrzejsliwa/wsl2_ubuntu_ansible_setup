@@ -22,6 +22,11 @@ tasks:
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "bash"  -i hosts.yml
 
+  brew:
+    desc: Tasks using Homebrew
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "brew"  -i hosts.yml
+
   docker:
     desc: Tasks configuring `Docker`
     cmds:

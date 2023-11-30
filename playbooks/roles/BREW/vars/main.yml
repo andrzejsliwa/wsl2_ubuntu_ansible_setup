@@ -1,7 +1,9 @@
+---
+#? ref: https://formulae.brew.sh/
 homebrew_packages:
     - awscli
     - bat
-    - direnv    
+    - direnv
     - go-task
     - nodejs
     - starship

@@ -7,19 +7,19 @@
                   name: APT
         tags: apt
 
+      - name: BREW package management tasks
+        block:
+            - include_role:
+                  name: BREW
+        tags: brew
+
       - name: WSL2 configuration tasks
         block:
             - include_role:
                   name: WSL
         tags: wsl
 
-      - name: Git client configuration tasks
-        block:
-            - include_role:
-                  name: GIT
-        tags: git
-
-      - name: Generic ssytem configuration tasks
+      - name: Generic sytem configuration tasks
         block:
             - include_role:
                   name: SYSTEM
@@ -38,6 +38,14 @@
             - include_role:
                   name: DOCKER
         tags: doc
+
+      - name: Git client configuration tasks
+        block:
+            - include_role:
+                  name: GIT
+        tags: git
+
+
 
       # - include_role:
       #       name: HOMEBREW
