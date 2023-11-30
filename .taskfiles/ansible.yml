@@ -43,7 +43,7 @@ tasks:
       - ansible-playbook playbooks/machine-wsl.yml --tags "git"  -i hosts.yml -K
 
   python:
-    desc: Install Python packages
+    desc: Install Python and required packages
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "python"  -i hosts.yml -K
 
@@ -56,6 +56,11 @@ tasks:
     desc: Tasks configuring the Linux system in general
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "sys"  -i hosts.yml -K
+
+  sporting:
+    desc: Configurations specific to Sporting Solutions Company
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "sporting"  -i hosts.yml
 
   wsl:
     desc: Tasks configuring `wsl`

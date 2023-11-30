@@ -6,3 +6,4 @@ pip_packages:
       - pykerberos
       # - krb5
       - ldap3
+      - awscli

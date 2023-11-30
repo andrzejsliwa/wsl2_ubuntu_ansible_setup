@@ -5,29 +5,30 @@
     name: aws-azure-login
     global: yes
     unsafe_perm: yes
-  tags:
-    - sporting
-    - aws-azure
 
 - name: Copy Sporting SSO config
   copy:
     src: "{{ role_path }}/files/config"
     dest: "{{ ansible_env.HOME }}/.aws/config"
-  tags:
-    - dotfiles
-    - sporting
-    - aws-azure
 
-- name: Ensure you can `sshuttle` to OY
+- name: Copy SHHUTTLE script
   copy:
-    src: "{{ role_path }}/files/oy-sshuttle"
+    src: "files/oy-sshuttle"
     dest: "{{ ansible_env.HOME }}/bin/oy-sshuttle"
-  tags:
-    - dotfiles
 
 - name: Set execute permission
   file:
     path: "{{ ansible_env.HOME }}/bin/oy-sshuttle"
+    mode: u+x
+
+- name: Copy SHHUTTLE kill script
+  copy:
+    src: "files/oy-sshuttle-kill"
+    dest: "{{ ansible_env.HOME }}/bin/oy-sshuttle-kill"
+
+- name: Set execute permission
+  file:
+    path: "{{ ansible_env.HOME }}/bin/oy-sshuttle-kill"
     mode: u+x
 
 # This might be  reviewed, it is based on https://www.sindastra.de/p/679/no-sudo-password-in-wsl

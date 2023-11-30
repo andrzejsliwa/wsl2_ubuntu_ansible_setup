@@ -66,10 +66,9 @@
                   name: SSH
         tags: ssh
 
-      # - include_role:
-      #       name: SPORTINGSOLUTION
+      - name: Configurations specific to Sporting Solutions
+        block:
+            - include_role:
+                  name: SPORTING
+        tags: sporting
 
-      # - block:
-      #       - include_role:
-      #             name: AWS
-      #   tags: aws
