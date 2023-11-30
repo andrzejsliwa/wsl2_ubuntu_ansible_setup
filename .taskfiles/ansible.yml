@@ -1,12 +1,11 @@
 ---
-version: '3'
+version: "3"
 
 tasks:
-
   all:
-   desc: Run the entire Ansible configuration for WSL2
-   cmds:
-    - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
+    desc: Run the entire Ansible configuration for WSL2
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
 
   list:
     desc: List Ansible tags
@@ -14,11 +13,16 @@ tasks:
       - ansible-playbook playbooks/machine-wsl.yml --list-tags
 
   apt:
-   desc: Tasks utilising `apt` package manager
-   cmds:
-    - ansible-playbook playbooks/machine-wsl.yml --tags "apt"  -i hosts.yml -K
+    desc: Tasks utilising `apt` package manager
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "apt"  -i hosts.yml -K
 
   wsl:
-   desc: Tasks configuring `wsl`
-   cmds:
-    - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K
+    desc: Tasks configuring `wsl`
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K
+
+  git:
+    desc: Tasks configuring `Git` client
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "git"  -i hosts.yml -K

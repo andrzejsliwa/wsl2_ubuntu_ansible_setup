@@ -13,8 +13,11 @@
                   name: WSL
         tags: wsl
 
-      # - include_role:
-      #       name: SYMLINKS
+      - name: Git client configuration tasks
+        block:
+            - include_role:
+                  name: GIT
+        tags: git
 
       # - include_role:
       #       name: BOOTSTRAPPING

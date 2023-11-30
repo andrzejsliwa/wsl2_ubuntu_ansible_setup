@@ -1,6 +1,0 @@
-# Create symbolic link to link projects folder
-- name: LINKS | Create 'Projects' link in user's home
-  ansible.builtin.file:
-    src: "/mnt/c/PROJECTS"
-    dest: "{{ ansible_user_dir }}/projects"
-    state: link
