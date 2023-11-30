@@ -7,3 +7,5 @@ private_aliases:
     command: "exa"
   - name: "ll"
     command: "exa -lah"
+  - name: "cls"
+    command: "clear"
