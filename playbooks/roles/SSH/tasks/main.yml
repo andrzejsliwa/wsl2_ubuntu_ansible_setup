@@ -3,8 +3,6 @@
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.ssh"
   register: ssh_folder_stat
-  tags:
-    - ssh
 
 - name:  Correct '~/.ssh' folder's permissions
   ansible.builtin.file:
@@ -13,8 +11,6 @@
     state: directory
     mode: '0700'
   when: not ssh_folder_stat.stat.exists or ssh_folder_stat.stat.mode != '0700'
-  tags:
-    - ssh
 
 - name:  Correct SSH config and key file permissions
   ansible.builtin.file:
@@ -22,5 +18,3 @@
     mode: '0600'
   with_fileglob:
     - "{{ ansible_env.HOME }}/.ssh/*"
-  tags:
-    - ssh

@@ -52,9 +52,11 @@
                   name: GIT
         tags: git
 
-
-      # - include_role:
-      #       name: DOTFILES
+      - name: SSH client / server configuration
+        block:
+            - include_role:
+                  name: SSH
+        tags: ssh
 
       # - include_role:
       #       name: SSH
