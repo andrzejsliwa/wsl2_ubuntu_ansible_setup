@@ -7,31 +7,37 @@
                   name: APT
         tags: apt
 
-      - include_role:
-            name: SYMLINKS
-
-      - include_role:
-            name: BOOTSTRAPPING
-
-      - include_role:
-            name: HOMEBREW
-
-      - include_role:
-            name: DOTFILES
-
-      - include_role:
-            name: SSH
-
-      - include_role:
-            name: PYTHON
-
-      - include_role:
-            name: DOCKER
-
-      - include_role:
-            name: SPORTINGSOLUTION
-
-      - block:
+      - name: WSL2 configuration tasks
+        block:
             - include_role:
-                  name: AWS
-        tags: aws
+                  name: WSL
+        tags: wsl
+
+      # - include_role:
+      #       name: SYMLINKS
+
+      # - include_role:
+      #       name: BOOTSTRAPPING
+
+      # - include_role:
+      #       name: HOMEBREW
+
+      # - include_role:
+      #       name: DOTFILES
+
+      # - include_role:
+      #       name: SSH
+
+      # - include_role:
+      #       name: PYTHON
+
+      # - include_role:
+      #       name: DOCKER
+
+      # - include_role:
+      #       name: SPORTINGSOLUTION
+
+      # - block:
+      #       - include_role:
+      #             name: AWS
+      #   tags: aws

@@ -17,3 +17,8 @@ tasks:
    desc: Tasks utilising `apt` package manager
    cmds:
     - ansible-playbook playbooks/machine-wsl.yml --tags "apt"  -i hosts.yml -K
+
+  wsl:
+   desc: Tasks configuring `wsl`
+   cmds:
+    - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K
