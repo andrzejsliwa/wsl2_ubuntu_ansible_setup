@@ -1,0 +1,19 @@
+---
+
+- name: Ensure `.config` directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config"
+    state: directory
+
+- name: Ensure `bin` directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/bin"
+    state: directory
+
+- name: Ensure Starship config is present
+  copy:
+    src: "{{ role_path }}/files/starship.toml"
+    dest: "{{ ansible_env.HOME }}/.config/starship.toml"
+
+
+

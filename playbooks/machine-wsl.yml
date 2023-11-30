@@ -1,6 +1,13 @@
 ---
 - hosts: local
   tasks:
+
+      - name: Dot file creations
+        block:
+            - include_role:
+                  name: DOT
+        tags: dot
+
       - name: APT package management tasks
         block:
             - include_role:
@@ -45,10 +52,6 @@
                   name: GIT
         tags: git
 
-
-
-      # - include_role:
-      #       name: HOMEBREW
 
       # - include_role:
       #       name: DOTFILES

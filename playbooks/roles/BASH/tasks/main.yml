@@ -1,12 +1,16 @@
 ---
-- name: Configure private aliases
+- name: Configure my ~/.bashrc file
   blockinfile:
     state: present
     insertafter: EOF
-    dest: "~/.bashrc"
-    marker_begin: "begin CUSTOM BASHRC ansible marker"
-    marker_end: "end CUSTOM BASHRC ansible marker"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    marker_begin: "begin CUSTOM BASHRC Ansible marker"
+    marker_end: "end CUSTOM BASHRC Ansible marker"
     content: |
       {% for alias in private_aliases %}
       alias {{ alias.name }}="{{ alias.command }}"
       {% endfor %}
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"                    # Load Homebrew
+      eval "$(direnv hook bash)"                                                # Load Direnv
+      eval "$(starship init bash)"                                              # Load Starship
+      export STARSHIP_CONFIG=~/.config/starship.toml                            # Point Starship to it's config

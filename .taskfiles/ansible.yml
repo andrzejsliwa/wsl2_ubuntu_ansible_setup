@@ -2,7 +2,7 @@
 version: "3"
 
 tasks:
-  all:
+  ALL:
     desc: Run the entire Ansible configuration for WSL2
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
@@ -31,6 +31,11 @@ tasks:
     desc: Tasks configuring `Docker`
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "doc"  -i hosts.yml -K
+
+  dot:
+    desc: Task to update/create a few configuration files
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "dot"  -i hosts.yml
 
   git:
     desc: Tasks configuring `Git` client

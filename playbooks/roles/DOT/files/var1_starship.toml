@@ -1,0 +1,178 @@
+# https://starship.rs/config/
+
+# magenta #9A348E
+# orange #FCA17D
+# blue 86BBD8
+# dark shade of blue 33658A
+
+[cmd_duration]
+format = '\[[⏱ $duration]($style)\]'
+
+[directory]
+#format = "[ $path ]($style)"
+format = '[ $path ]($style)[$read_only]($read_only_style) '
+truncation_length = 0
+truncation_symbol = "…/"
+truncate_to_repo = false
+
+[conda]
+format = '\[[$symbol$environment]($style)\]'
+
+
+[docker_context]
+format = '\[[$symbol$context]($style)\]'
+
+# [fill]
+# disable = false
+
+[git_branch]
+format = '\[[$symbol$branch]($style)\]'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+
+
+[memory_usage]
+format = '\[$symbol[$ram( | $swap)]($style)\]'
+
+
+[time]
+format = '\[[$time]($style)\]'
+disabled = false
+
+
+[username]
+format = '\[[$user]($style)\]'
+show_always = true
+
+[python]
+disabled = false
+format = '[${pyenv_prefix}(\(venv $virtualenv\) )]($style)'
+
+[aws]
+disabled = true
+[buf]
+disabled = true
+[bun]
+disabled = true
+[c]
+disabled = true
+[cmake]
+disabled = true
+[cobol]
+disabled = true
+[crystal]
+disabled = true
+[daml]
+disabled = true
+[dart]
+disabled = true
+[dotnet]
+disabled = true
+[elixir]
+disabled = true
+[elm]
+disabled = true
+[erlang]
+disabled = true
+[gcloud]
+disabled = true
+[golang]
+disabled = true
+[haskell]
+disabled = true
+[haxe]
+disabled = true
+[helm]
+disabled = true
+[java]
+disabled = true
+[julia]
+disabled = true
+[kotlin]
+disabled = true
+[lua]
+disabled = true
+[meson]
+disabled = true
+[nim]
+disabled = true
+[nix_shell]
+disabled = true
+[nodejs]
+disabled = true
+[ocaml]
+disabled = true
+[openstack]
+disabled = true
+[package]
+disabled = true
+[perl]
+disabled = true
+[php]
+disabled = true
+[pulumi]
+disabled = true
+[purescript]
+disabled = true
+[rlang]
+disabled = true
+[raku]
+disabled = true
+[red]
+disabled = true
+[ruby]
+disabled = true
+[rust]
+disabled = true
+[scala]
+disabled = true
+[singularity]
+disabled = true
+[spack]
+disabled = true
+[swift]
+disabled = true
+[terraform]
+disabled = false
+[vagrant]
+disabled = false
+[vlang]
+disabled = true
+[vcsh]
+disabled = true
+[zig]
+disabled = true
+
+
+[status]
+disabled = false
+
+[shell]
+disabled = false
+#bsh_indicator = "BSH"
+bash_indicator = "📦"
+#fish_indicator = "FISH"
+fish_indicator = "🐟"
+#zsh_indicator = "ZSH"
+zsh_indicator =  "💤"
+
+
+
+[hostname]
+ssh_only = true
+#format = "[@$hostname]($style)"
+format = ' \[$ssh_symbol [$hostname]($style)\]'
+trim_at = "-"
+#style = "bold dimmed white"
+#style = "bg:#DA627D"
+disabled = false
+
+
+[custom.svn]
+when = "svn --non-interactive info >/dev/null 2>&1"
+# the binary `svnstatus` can be found here: https://github.com/manfredlotz/svnstatus
+command = "~/bin/svnstatus"
+symbol = "svn"
+format = '\[[$symbol ($output)]($style)\]'
+
