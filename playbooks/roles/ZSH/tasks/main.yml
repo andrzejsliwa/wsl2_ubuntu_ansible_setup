@@ -1,0 +1,38 @@
+- name: Install ZSH
+  include_role:
+    name: bec.shell.zsh
+
+- name: Install Oh-My-ZSH
+  include_role:
+    name: gantsign.oh-my-zsh
+
+- name: Clone plugin `Autosuggestions`
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+- name: Clone plugin repo `FZF`
+  ansible.builtin.git:
+    depth: 1
+    repo: https://github.com/unixorn/fzf-zsh-plugin.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/fzf-zsh-plugin"
+
+- name: Append to  ~/.zshrc file
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    marker_begin: "begin CUSTOM ZSH Ansible marker"
+    marker_end: "end CUSTOM ZSH Ansible marker"
+    content: |
+      {% for alias in private_aliases %}
+      alias {{ alias.name }}="{{ alias.command }}"
+      {% endfor %}
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"                    # Load Homebrew
+      eval "$(direnv hook zsh)"                                                 # Load Direnv
+      eval "$(starship init zsh)"                                               # Load Starship
+      export STARSHIP_CONFIG=~/.config/starship.toml                            # Point Starship to it's config
+
+- name: Debug message '#1'
+  ansible.builtin.debug:
+    msg: "ZSH was installed foruser[s]: {{zsh_users}}"
