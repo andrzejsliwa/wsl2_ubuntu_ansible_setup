@@ -66,3 +66,8 @@ tasks:
     desc: Tasks configuring `wsl`
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "wsl"  -i hosts.yml -K
+
+  zsh:
+    desc: Install ZSH
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "zsh"  -i hosts.yml

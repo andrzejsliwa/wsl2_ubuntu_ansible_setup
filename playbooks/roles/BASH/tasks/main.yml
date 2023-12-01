@@ -1,4 +1,3 @@
----
 - name: Configure my ~/.bashrc file
   blockinfile:
     state: present

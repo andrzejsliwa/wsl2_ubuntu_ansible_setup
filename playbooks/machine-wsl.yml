@@ -1,74 +1,66 @@
----
 - hosts: local
   tasks:
-
-      - name: Dot file creations
-        block:
-            - include_role:
-                  name: DOT
-        tags: dot
-
-      - name: APT package management tasks
-        block:
-            - include_role:
-                  name: APT
-        tags: apt
-
-      - name: BREW package management tasks
-        block:
-            - include_role:
-                  name: BREW
-        tags: brew
-
-      - name: Python package management tasks
-        become: true
-        become_method: sudo
-        block:
-            - include_role:
-                  name: PYTHON
-        tags: python
-
-      - name: WSL2 configuration tasks
-        block:
-            - include_role:
-                  name: WSL
-        tags: wsl
-
-      - name: Generic sytem configuration tasks
-        block:
-            - include_role:
-                  name: SYSTEM
-        tags: sys
-
-      - name: Bash shell configuration tasks
-        block:
-            - include_role:
-                  name: BASH
-        tags: bash
-
-      - name: Docker engine configuration
-        become: true
-        become_method: sudo
-        block:
-            - include_role:
-                  name: DOCKER
-        tags: doc
-
-      - name: Git client configuration tasks
-        block:
-            - include_role:
-                  name: GIT
-        tags: git
-
-      - name: SSH client / server configuration
-        block:
-            - include_role:
-                  name: SSH
-        tags: ssh
-
-      - name: Configurations specific to Sporting Solutions
-        block:
-            - include_role:
-                  name: SPORTING
-        tags: sporting
-
+    - block:
+        - include_role:
+            name: DOT
+      name: Dot file creations
+      tags: dot
+    - block:
+        - include_role:
+            name: APT
+      name: APT package management tasks
+      tags: apt
+    - block:
+        - include_role:
+            name: BREW
+      name: BREW package management tasks
+      tags: brew
+    - become: true
+      become_method: sudo
+      block:
+        - include_role:
+            name: PYTHON
+      name: Python package management tasks
+      tags: python
+    - block:
+        - include_role:
+            name: WSL
+      name: WSL2 configuration tasks
+      tags: wsl
+    - block:
+        - include_role:
+            name: SYSTEM
+      name: Generic sytem configuration tasks
+      tags: sys
+    - block:
+        - include_role:
+            name: BASH
+      name: Bash shell configuration tasks
+      tags: bash
+    - become: true
+      become_method: sudo
+      block:
+        - include_role:
+            name: DOCKER
+      name: Docker engine configuration
+      tags: doc
+    - block:
+        - include_role:
+            name: GIT
+      name: Git client configuration tasks
+      tags: git
+    - block:
+        - include_role:
+            name: SSH
+      name: SSH client / server configuration
+      tags: ssh
+    - block:
+        - include_role:
+            name: SPORTING
+      name: Configurations specific to Sporting Solutions
+      tags: sporting
+    - block:
+        - include_role:
+            name: ZSH
+      name: Shell config
+      tags: zsh

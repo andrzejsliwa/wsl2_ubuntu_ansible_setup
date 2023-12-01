@@ -20,13 +20,21 @@
 format = """
 [░▒▓](#2e3440)\
 $os\
+
 $username\
-[](bg:#3b4252 fg:#2e3440)\
+[](fg:#2e3440 bg:#201f1f )\
+
+$shell\
+[](fg:#201f1f bg:#3b4252)\
+
 $directory\
 [](fg:#3b4252 bg:#434c5e)\
+
 $git_branch\
+
 $git_status\
 [](fg:#434c5e bg:#4c566a)\
+
 $c\
 $python\
 $elixir\
@@ -40,10 +48,13 @@ $nim\
 $rust\
 $scala\
 [](fg:#4c566a bg:#5e81ac)\
+
 $docker_context\
 [](fg:#5e81ac bg:#6272a4)\
+
 $time\
 [ ](fg:#6272a4)\
+
 \n
 $cmd_duration\
 $character\
@@ -53,16 +64,34 @@ $character\
 [line_break]
 disabled = false
 
+# [shell]
+# disabled = false
+# #bsh_indicator = "BSH"
+# bash_indicator = "bsh"
+# #fish_indicator = "FISH"
+# fish_indicator = "🐟"
+# #zsh_indicator = "ZSH"
+# zsh_indicator =  "💤"
+
 [username]
 show_always = true
 style_user = "bg:#2e3440"
-style_root = "bg:#9A348E"
 format = '[$user ]($style)'
 disabled = false
 
 [os]
 style = "bg:#2e3440"
 disabled = true # Disabled by default
+
+[shell]
+fish_indicator = "🐟"
+zsh_indicator =  "💤"
+bash_indicator = "bsh"
+powershell_indicator = '_'
+unknown_indicator = 'mystery shell'
+style = "bg:#201f1f"
+format = '[$indicator ]($style)'
+disabled = false
 
 [directory]
 style = "bg:#3b4252"

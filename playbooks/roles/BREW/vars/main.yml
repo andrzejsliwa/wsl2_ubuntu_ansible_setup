@@ -11,3 +11,4 @@ homebrew_packages:
     - pre-commit
     - tfenv
     - tgenv
+    - fzf
