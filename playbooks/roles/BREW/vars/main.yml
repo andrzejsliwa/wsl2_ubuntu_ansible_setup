@@ -12,3 +12,4 @@ homebrew_packages:
     - tfenv
     - tgenv
     - fzf
+    - ranger
