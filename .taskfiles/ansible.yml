@@ -2,10 +2,15 @@
 version: "3"
 
 tasks:
-  ALL:
+  work:
     desc: Run the entire Ansible configuration for WSL2
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K
+
+  home:
+    desc: Run the entire Ansible configuration, except the wok-computer specific tasks
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --skip-tags sporting -i hosts.yml -K
 
   list:
     desc: List Ansible tags
