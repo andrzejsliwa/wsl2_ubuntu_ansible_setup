@@ -38,10 +38,7 @@
           - libglib2.0-dev
 
     - name: Install Python docker package
-      pip:
-        name:
-          - docker
-        executable: pip3
+      command: pip3 install docker
 
     - name: Check if docker-compose is installed
       stat:
