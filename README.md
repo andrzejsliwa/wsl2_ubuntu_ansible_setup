@@ -8,6 +8,9 @@ Why Ansible? Because re-creating (I was using a simple make file in the previous
 
 ## Prerequires:
 
+- fix DNS based on this: <https://gist.github.com/coltenkrauter/608cfe02319ce60facd76373249b8ca6>
+    - I would also suggest using in `/etc/resolv.conf` the company name servers (if company machine) + `nameserver 1.1.1.1` as a fallback option (Cloudflare DNS)
+
 - place SSH-specific files to `.ssh` folder [optional]
 
 - install Ansible `./install_ansible.sh`
