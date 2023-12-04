@@ -5,7 +5,12 @@
     name: aws-azure-login
     global: yes
     unsafe_perm: yes
-
+    
+- name: Ensure `.aws` directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.aws"
+    state: directory
+    
 - name: Copy Sporting SSO config
   copy:
     src: "{{ role_path }}/files/config"
