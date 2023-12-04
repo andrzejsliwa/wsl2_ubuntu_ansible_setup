@@ -17,7 +17,7 @@ apt_packages:
 - libxss1
 - neovim
 - openssh-server
-- python-is-python3
+# - python-is-python3
 - software-properties-common
 - sshuttle
 - tmux
