@@ -21,3 +21,20 @@
   command: echo never > /sys/kernel/mm/transparent_hugepage/enabled
   when: "'never' not in thp_status.stdout"
 
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+
+- name: FiraCode exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/FiraCode"
+  register: firacode_exists
+  ignore_errors: yes
+
+- name: Download FiraCode
+  when: firacode_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.0/FiraCode.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: yes
+
