@@ -2,6 +2,11 @@
   tasks:
     - block:
         - include_role:
+            name: SYSTEM
+      name: System preparation
+      tags: sys
+    - block:
+        - include_role:
             name: DOT
       name: Dot file creations
       tags: dot
