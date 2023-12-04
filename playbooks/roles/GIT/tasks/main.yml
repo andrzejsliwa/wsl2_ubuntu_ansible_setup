@@ -1,0 +1,60 @@
+---
+- name: Setup Git user name
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
+
+- name: Setup Git user email
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
+
+- name: Setup Git Pull Rebase
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: true
+
+- name: Setup Git Prune on Fetch
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: true
+
+- name: Setup Git Differentiate Moved Lines
+  git_config:
+    name: diff.colorMoved
+    scope: global
+    value: zebra
+
+- name: Setup Git Default branch to Main
+  git_config:
+    name: init.defaultBranch
+    scope: global
+    value: main
+
+- name: Create '.gitignore_global' file if not exists
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+  register: gitignore_stat
+
+- name: Create '.gitignore_global' file
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+    state: touch
+  when: not gitignore_stat.stat.exists
+
+- name: Add gitignores to '.gitignore_global'
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.gitignore_global"
+    line: "{{ item }}"
+    state: present
+  loop: "{{ git_ignore_patterns }}"
+
+- name: Set excludes
+  ansible.builtin.git_config:
+    scope: global
+    name: core.excludesfile
+    value: "{{ ansible_user_dir }}/.gitignore_global"

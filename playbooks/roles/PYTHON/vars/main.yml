@@ -4,5 +4,6 @@ pip_packages:
       - pywinrm
       - requests
       - pykerberos
-      - krb5
+      # - krb5
       - ldap3
+      - awscli

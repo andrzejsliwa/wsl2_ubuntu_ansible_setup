@@ -1,0 +1,23 @@
+---
+- name: Configure
+  become: true
+  blockinfile:
+    state: present
+    insertafter: EOF
+    dest: /etc/sysctl.conf
+    marker_begin: "begin CUSTOM ansible marker"
+    marker_end: "end CUSTOM ansible marker"
+    content: |
+      vm.overcommit_memory = 1
+
+- name: Check current THP status
+  become: true
+  command: cat /sys/kernel/mm/transparent_hugepage/enabled
+  register: thp_status
+  changed_when: false  # Do not mark this task as changed regardless of the output
+
+- name: Enable THP globally if needed
+  become: true
+  command: echo never > /sys/kernel/mm/transparent_hugepage/enabled
+  when: "'never' not in thp_status.stdout"
+

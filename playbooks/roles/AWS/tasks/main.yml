@@ -1,5 +1,0 @@
----
-- name: Use Pip3 to install awscli
-  ansible.builtin.pip:
-    name: awscli
-    executable: pip3

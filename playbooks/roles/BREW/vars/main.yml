@@ -1,0 +1,15 @@
+---
+#? ref: https://formulae.brew.sh/
+homebrew_packages:
+    - awscli
+    - bat
+    - direnv
+    - go-task
+    - nodejs
+    - starship
+    - python
+    - pre-commit
+    - tfenv
+    - tgenv
+    - fzf
+    - ranger

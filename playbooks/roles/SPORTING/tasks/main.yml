@@ -1,0 +1,37 @@
+---
+
+- name: Install 'aws-azure-login' CLI
+  npm:
+    name: aws-azure-login
+    global: yes
+    unsafe_perm: yes
+
+- name: Copy Sporting SSO config
+  copy:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_env.HOME }}/.aws/config"
+
+- name: Copy SHHUTTLE script
+  copy:
+    src: "files/oy-sshuttle"
+    dest: "{{ ansible_env.HOME }}/bin/oy-sshuttle"
+
+- name: Set execute permission
+  file:
+    path: "{{ ansible_env.HOME }}/bin/oy-sshuttle"
+    mode: u+x
+
+- name: Copy SHHUTTLE kill script
+  copy:
+    src: "files/oy-sshuttle-kill"
+    dest: "{{ ansible_env.HOME }}/bin/oy-sshuttle-kill"
+
+- name: Set execute permission
+  file:
+    path: "{{ ansible_env.HOME }}/bin/oy-sshuttle-kill"
+    mode: u+x
+
+# This might be  reviewed, it is based on https://www.sindastra.de/p/679/no-sudo-password-in-wsl
+- name: Add sudoers rule for fabrice to run sshuttle without a password 
+  command: |
+    echo "`whoami` ALL=(ALL) NOPASSWD: /home/fabrice/bin/oy-sshuttle" | sudo tee /etc/sudoers.d/`whoami` && sudo chmod 0440 /etc/sudoers.d/`whoami`

@@ -1,0 +1,34 @@
+---
+##? references:
+##? role: https://github.com/gantsign/ansible-role-oh-my-zsh
+##? oh-my-zsh: https://ohmyz.sh/
+
+#! Core ZSH variables
+zsh_users:
+  - fabrice
+zsh_config_backup: true
+
+#! OH-MY-ZSH variables
+users:
+  - username: fabrice
+    oh_my_zsh:
+      theme: agnoster
+      plugins:
+        - git
+        - fzf-zsh-plugin
+        - zsh-autosuggestions
+      update_mode: reminder
+      update_frequency: 3
+      write_zshrc: true
+
+private_aliases:
+  - name: ".."
+    command: "cd .."
+  - name: "cat"
+    command: "bat" # cat is now bat
+  - name: "l"
+    command: "exa"
+  - name: "ll"
+    command: "exa -lah"
+  - name: "cls"
+    command: "clear"
