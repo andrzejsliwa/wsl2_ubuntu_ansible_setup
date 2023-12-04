@@ -42,7 +42,7 @@
             name: BASH
       name: Bash shell configuration tasks
       tags: bash
-    - become: true
+     #- become: true
      # become_method: sudo
      # block:
      #   - include_role:
