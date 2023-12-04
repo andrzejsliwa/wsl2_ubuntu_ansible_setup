@@ -41,6 +41,7 @@
       pip:
         name:
           - docker
+        executable: pip3
 
     - name: Check if docker-compose is installed
       stat:
