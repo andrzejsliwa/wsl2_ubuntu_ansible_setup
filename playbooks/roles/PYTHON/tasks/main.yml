@@ -36,7 +36,5 @@
 #   command: "python{{ python_version }} -m pip install --upgrade pip"
 
 - name: Install additional pip3 modules
-  with_items: "{{  pip_packages }}"
-  ansible.builtin.pip:
-    name: "{{ item  }}"
-    executable: pip3
+  cmd: |
+    pip3 install pywinrm requests pykerberos krb5 ldap3 awscli
