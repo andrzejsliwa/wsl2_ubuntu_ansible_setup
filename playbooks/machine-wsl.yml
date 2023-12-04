@@ -20,11 +20,11 @@
             name: BREW
       name: BREW package management tasks
       tags: brew
-    # - become: true
-    #   become_method: sudo
-    #   block:
-    #     - include_role:
-    #         name: PYTHON
+     - become: true
+       become_method: sudo
+       block:
+         - include_role:
+             name: PYTHON
       name: Python package management tasks
       tags: python
     - block:
