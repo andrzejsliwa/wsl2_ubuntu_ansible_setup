@@ -7,7 +7,7 @@ homebrew_packages:
     - go-task
     - nodejs
     - starship
-    - python
+    #- python
     - pre-commit
     - tfenv
     - tgenv
