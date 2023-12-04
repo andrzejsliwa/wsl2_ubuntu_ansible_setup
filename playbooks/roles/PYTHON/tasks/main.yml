@@ -1,25 +1,25 @@
 ---
 
-- name: Add python repository to apt
-  become: true
-  apt_repository:
-    repo: ppa:deadsnakes/ppa
+#- name: Add python repository to apt
+#  become: true
+#  apt_repository:
+#    repo: ppa:deadsnakes/ppa
 
-- name: Update packages list
-  become: true
-  apt:
-    update_cache: yes
-    cache_valid_time: 43200
+#- name: Update packages list
+#  become: true
+#  apt:
+#    update_cache: yes
+#    cache_valid_time: 43200
 
-- name: Installing Python
-  become: true
-  become_method: sudo
-  apt:
-    pkg:
-      - software-properties-common
-      - "python{{ python_version }}"
-      - "python{{ python_version }}-distutils"
-      - "python{{ python_version }}-venv"
+#- name: Installing Python
+#  become: true
+#  become_method: sudo
+#  apt:
+#    pkg:
+#      - software-properties-common
+#      - "python{{ python_version }}"
+#      - "python{{ python_version }}-distutils"
+#      - "python{{ python_version }}-venv"
 
 - name: Check if pip3 is installed
   stat:
@@ -35,5 +35,5 @@
 #   become: true
 #   command: "python{{ python_version }} -m pip install --upgrade pip"
 
-- name: Install additional pip3 modules
- command: pip3 install pywinrm requests pykerberos krb5 ldap3 awscli
+#- name: Install additional pip3 modules
+# command: pip3 install pywinrm requests pykerberos krb5 ldap3 awscli
