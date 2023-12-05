@@ -75,4 +75,4 @@ tasks:
   zsh:
     desc: Install ZSH
     cmds:
-      - ansible-playbook playbooks/machine-wsl.yml --tags "zsh"  -i hosts.yml
+      - ansible-playbook playbooks/machine-wsl.yml --tags "zsh"  -i hosts.yml -K

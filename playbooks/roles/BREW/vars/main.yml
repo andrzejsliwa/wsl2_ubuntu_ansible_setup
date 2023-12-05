@@ -13,3 +13,4 @@ homebrew_packages:
     - tgenv
     - fzf
     - ranger
+    - neovim

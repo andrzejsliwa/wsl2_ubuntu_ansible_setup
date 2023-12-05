@@ -17,7 +17,6 @@ apt_packages:
 - libnotify-dev
 - libxss1
 # << for python authentication
-- neovim
 - openssh-server
 # - python-is-python3
 - software-properties-common
@@ -25,3 +24,4 @@ apt_packages:
 - tmux
 - tmux
 - unzip
+- ripgrep
