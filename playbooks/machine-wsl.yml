@@ -42,13 +42,13 @@
             name: BASH
       name: Bash shell configuration tasks
       tags: bash
-     #- become: true
-     # become_method: sudo
-     # block:
-     #   - include_role:
-     #       name: DOCKER
-     # name: Docker engine configuration
-     # tags: doc
+    - become: true
+      become_method: sudo
+      block:
+        - include_role:
+            name: DOCKER
+      name: Docker engine configuration
+      tags: doc
     - block:
         - include_role:
             name: GIT

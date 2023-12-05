@@ -37,8 +37,17 @@
           - libsecret-1-dev
           - libglib2.0-dev
 
-    - name: Install Python docker package
-      command: pip3 install docker
+    - name: Ensure python3-pip is installed
+      become: true
+      package:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker Python package
+      pip:
+        name: docker
+        executable: pip3
+        state: present
 
     - name: Check if docker-compose is installed
       stat:
