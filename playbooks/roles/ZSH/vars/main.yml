@@ -24,8 +24,8 @@ users:
 private_aliases:
   - name: ".."
     command: "cd .."
-  # - name: "cat"
-  #   command: "bat" # cat is now bat
+  - name: "cat"
+    command: "bat --style=plain" # cat is now bat
   - name: "l"
     command: "exa"
   - name: "ll"
