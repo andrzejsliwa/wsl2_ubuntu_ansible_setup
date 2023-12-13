@@ -5,6 +5,7 @@ homebrew_packages:
     - bat
     - direnv
     - go-task
+    - govc
     - nodejs
     - starship
     #- python
