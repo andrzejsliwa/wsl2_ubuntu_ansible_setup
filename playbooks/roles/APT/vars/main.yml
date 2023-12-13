@@ -1,27 +1,29 @@
 apt_packages:
-- btop
-- duf
-- exa
-- gh
-- git
-- htop
-- jq
-# for python authentication >>
-- krb5-config
-- krb5-user
-- libasound2
-- libgconf-2-4
-- libgtk-3-dev
-- libkrb5-dev
-- libnss3
-- libnotify-dev
-- libxss1
-# << for python authentication
-- openssh-server
-# - python-is-python3
-- software-properties-common
-- sshuttle
-- tmux
-- tmux
-- unzip
-- ripgrep
+  - btop
+  - cowsay
+  - duf
+  - exa
+  - gh
+  - git
+  - htop
+  - jq
+  # for python authentication >>
+  - krb5-config
+  - krb5-user
+  - libasound2
+  - libgconf-2-4
+  - libgtk-3-dev
+  - libkrb5-dev
+  - libnss3
+  - libnotify-dev
+  - libxss1
+  # << for python authentication
+  - lolcat
+  - openssh-server
+  # - python-is-python3
+  - software-properties-common
+  - sshuttle
+  - tmux
+  - tmux
+  - unzip
+  - ripgrep
