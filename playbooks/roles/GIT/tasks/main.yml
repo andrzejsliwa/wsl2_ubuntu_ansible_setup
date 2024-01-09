@@ -3,13 +3,13 @@
   git_config:
     name: user.name
     scope: global
-    value: "{{ git_user_name }}"
+    value: '{{ git_user_name }}'
 
 - name: Setup Git user email
   git_config:
     name: user.email
     scope: global
-    value: "{{ git_user_email }}"
+    value: '{{ git_user_email }}'
 
 - name: Setup Git Pull Rebase
   git_config:
@@ -37,24 +37,54 @@
 
 - name: Create '.gitignore_global' file if not exists
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.gitignore_global"
+    path: '{{ ansible_user_dir }}/.gitignore_global'
   register: gitignore_stat
 
 - name: Create '.gitignore_global' file
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.gitignore_global"
+    path: '{{ ansible_user_dir }}/.gitignore_global'
     state: touch
   when: not gitignore_stat.stat.exists
 
 - name: Add gitignores to '.gitignore_global'
   ansible.builtin.lineinfile:
-    path: "{{ ansible_user_dir }}/.gitignore_global"
-    line: "{{ item }}"
+    path: '{{ ansible_user_dir }}/.gitignore_global'
+    line: '{{ item }}'
     state: present
-  loop: "{{ git_ignore_patterns }}"
+  loop: '{{ git_ignore_patterns }}'
 
 - name: Set excludes
   ansible.builtin.git_config:
     scope: global
     name: core.excludesfile
-    value: "{{ ansible_user_dir }}/.gitignore_global"
+    value: '{{ ansible_user_dir }}/.gitignore_global'
+
+- name: Set commit.gpgSign to true
+  git_config:
+    name: commit.gpgSign
+    value: true
+    scope: global
+
+- name: Set gpg.format to "ssh"
+  git_config:
+    name: gpg.format
+    value: 'ssh'
+    scope: global
+
+- name: Set gpg.ssh.allowedSignersFile to "~/.ssh/allowed_signers"
+  git_config:
+    name: gpg.ssh.allowedSignersFile
+    value: '~/.ssh/allowed_signers'
+    scope: global
+
+- name: Set user.signingkey to "~/.ssh/id_sig_rsa.pub"
+  git_config:
+    name: user.signingkey
+    value: '~/.ssh/id_sig_rsa.pub'
+    scope: global
+
+- name: Copy id_sig_rsa.pub to allowed_signers
+  copy:
+    src: '~/.ssh/id_sig_rsa.pub'
+    dest: '~/.ssh/allowed_signers'
+    remote_src: yes
