@@ -3,4 +3,6 @@ git_user_name: 'Fabrice Semti'
 git_user_email: 'fabrice@fabricesemti.com'
 git_ignore_patterns:
   - .vscode/
-git_pub_signing_key_file: ~/.ssh/id_sig_rsa.pub
+git_pub_signing_key_file: ~/.ssh/id_ed25519.pub
+git_allowed_signers_file: ~/.ssh/allowed_signers
+git_pub_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBJpVWYmXPpqVmlHdixDR//vdfD+sryvYmpH2Dj1/Otx

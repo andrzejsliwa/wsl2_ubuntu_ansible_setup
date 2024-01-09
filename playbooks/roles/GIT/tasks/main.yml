@@ -59,6 +59,7 @@
     name: core.excludesfile
     value: '{{ ansible_user_dir }}/.gitignore_global'
 
+## ? Signing
 - name: Set commit.gpgSign to true
   git_config:
     name: commit.gpgSign
@@ -71,20 +72,24 @@
     value: 'ssh'
     scope: global
 
-- name: Set gpg.ssh.allowedSignersFile to "~/.ssh/allowed_signers"
+- name: Copy public key file to "{{ git_allowed_signers_file  }}"
+  copy:
+    content: '{{ git_pub_key }}'
+    dest: '{{ git_allowed_signers_file  }}'
+
+- name: Set gpg.ssh.allowedSignersFile to "{{ git_allowed_signers_file  }}"
   git_config:
     name: gpg.ssh.allowedSignersFile
-    value: '~/.ssh/allowed_signers'
+    value: '{{ git_allowed_signers_file  }}'
     scope: global
 
-- name: Set user.signingkey to "~/.ssh/id_sig_rsa.pub"
+- name: Copy public key file to "{{  git_pub_signing_key_file  }}"
+  copy:
+    content: '{{ git_pub_key }}'
+    dest: '{{  git_pub_signing_key_file  }}'
+
+- name: Set user.signingkey to "{{  git_pub_signing_key_file  }}"
   git_config:
     name: user.signingkey
     value: '{{  git_pub_signing_key_file  }}'
     scope: global
-
-- name: Copy id_sig_rsa.pub to allowed_signers
-  copy:
-    src: '{{  git_pub_signing_key_file  }}'
-    dest: '~/.ssh/allowed_signers'
-    remote_src: yes
