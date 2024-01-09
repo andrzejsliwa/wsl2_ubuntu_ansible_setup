@@ -80,11 +80,11 @@
 - name: Set user.signingkey to "~/.ssh/id_sig_rsa.pub"
   git_config:
     name: user.signingkey
-    value: '~/.ssh/id_sig_rsa.pub'
+    value: '{{  git_pub_signing_key_file  }}'
     scope: global
 
 - name: Copy id_sig_rsa.pub to allowed_signers
   copy:
-    src: '~/.ssh/id_sig_rsa.pub'
+    src: '{{  git_pub_signing_key_file  }}'
     dest: '~/.ssh/allowed_signers'
     remote_src: yes

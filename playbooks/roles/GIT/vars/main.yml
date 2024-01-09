@@ -1,5 +1,6 @@
 ---
-git_user_name: "Fabrice Semti"
-git_user_email: "fabrice@fabricesemti.com"
+git_user_name: 'Fabrice Semti'
+git_user_email: 'fabrice@fabricesemti.com'
 git_ignore_patterns:
   - .vscode/
+git_pub_signing_key_file: ~/.ssh/id_sig_rsa.pub
