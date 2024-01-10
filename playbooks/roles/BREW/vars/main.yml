@@ -4,6 +4,7 @@ homebrew_packages:
     - awscli
     - bat
     - direnv
+    - dog
     - go-task
     - govc
     - nodejs

@@ -7,7 +7,6 @@ apt_packages:
   - git
   - htop
   - jq
-  # for python authentication >>
   - krb5-config
   - krb5-user
   - libasound2
@@ -17,13 +16,12 @@ apt_packages:
   - libnss3
   - libnotify-dev
   - libxss1
-  # << for python authentication
   - lolcat
   - openssh-server
-  # - python-is-python3
+  - pwgen
+  - ripgrep
   - software-properties-common
   - sshuttle
   - tmux
   - tmux
   - unzip
-  - ripgrep
