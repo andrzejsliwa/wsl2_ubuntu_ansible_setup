@@ -69,3 +69,8 @@
             name: ZSH
       name: Shell config
       tags: zsh
+    - block:
+        - include_role:
+            name: NIX
+      name: Add NIX package manager
+      tags: nix

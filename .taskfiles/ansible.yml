@@ -1,5 +1,5 @@
 ---
-version: "3"
+version: '3'
 
 tasks:
   work:
@@ -46,6 +46,11 @@ tasks:
     desc: Tasks configuring `Git` client
     cmds:
       - ansible-playbook playbooks/machine-wsl.yml --tags "git"  -i hosts.yml -K
+
+  nix:
+    desc: Install Nix package manager
+    cmds:
+      - ansible-playbook playbooks/machine-wsl.yml --tags "nix"  -i hosts.yml -K
 
   python:
     desc: Install Python and required packages
