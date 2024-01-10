@@ -1,0 +1,12 @@
+---
+- name: Install NIX
+  include_role:
+    name: danielrolls.nix
+
+- name: Execute nix-info command
+  shell: "nix-shell -p nix-info --command 'nix-info'"
+  register: nix_info_output
+
+- name: Display nix-info output
+  debug:
+    var: nix_info_output.stdout_lines

@@ -1,0 +1,4 @@
+---
+nix_commands:
+  - 'nix-shell -p nix-info --command nix-info'
+flakes: true
