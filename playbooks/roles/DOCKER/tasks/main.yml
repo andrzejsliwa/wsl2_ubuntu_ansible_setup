@@ -37,6 +37,7 @@
     - name: Import Docker GPG key
       when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
       ansible.builtin.apt_key:
+        id: 0EBFCD88
         url: '{{ docker_gpg_key }}'
         state: present
 
