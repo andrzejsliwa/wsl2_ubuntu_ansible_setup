@@ -35,7 +35,7 @@
     #* FACTS
     - name: Set Docker repository and GPG key for Ubuntu or Debian
       set_fact:
-        docker_repository: 'deb [arch={{  ansible_architecture  }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable'
+        docker_repository: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable' #FIXME: get the architecture dynamically
         docker_gpg_key: 'https://download.docker.com/linux/{{ ansible_distribution|lower }}/gpg'
 
     #* ACTIONS
