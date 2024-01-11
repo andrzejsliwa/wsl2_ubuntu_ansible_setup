@@ -1,0 +1,13 @@
+---
+version: '3'
+
+tasks:
+  work:
+    desc: Prepare WSL installation on my work [Windows] system
+    cmds:
+      - ansible-playbook playbooks/machineconfig.yml --tags wsl,sporting -i hosts.yml -K
+
+  home:
+    desc: Prepare WSL installation on my personal [Windows] system [skipp Sporting-specific settings]
+    cmds:
+      - ansible-playbook playbooks/machineconfig.yml --tags wsl --skip-tags sporting -i hosts.yml -K

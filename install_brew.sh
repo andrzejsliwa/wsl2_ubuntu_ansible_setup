@@ -7,7 +7,11 @@
 sudo apt-get install build-essential -y
 
 # load brew to current shell
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+source ~/.bashrc
 
 # install gcc
 brew install gcc
+
+# isntall Tasks
+brew install go-task
