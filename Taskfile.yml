@@ -1,26 +1,26 @@
 ---
-version: "3"
+version: '3'
 
 vars:
   # add variables here
   {}
 
-dotenv: [".config.env"]
+dotenv: ['.config.env']
 
 env:
   EDITOR: nano
 
 includes:
-  init: .taskfiles/init.yml
-  ansible: .taskfiles/ansible.yml
+  init: .taskfiles/InitTasks.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  wsl: .taskfiles/WSLTasks.yml
 
 tasks:
-
   default:
     - task --list-all
 
   init:
     desc: Prepare WSL2 to meet the pre-requisites
     cmds:
-    - task: init:install-ansible
-    - task: init:install-brew
+      - task: init:install-ansible
+      - task: init:install-brew

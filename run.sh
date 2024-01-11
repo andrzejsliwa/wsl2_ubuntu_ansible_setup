@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook playbooks/machine-wsl.yml -i hosts.yml -K 
+ansible-playbook playbooks/machineconfig.yml -i hosts.yml -K 
