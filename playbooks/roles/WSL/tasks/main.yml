@@ -1,26 +1,20 @@
 ---
 - name: Check if wsl.conf is installed
   stat:
-    path: "/etc/wsl.conf"
+    path: '/etc/wsl.conf'
   register: wsl_conf_is_installed
 
 - name: Enable Systemd and Fix networking - https://gist.github.com/coltenkrauter/608cfe02319ce60facd76373249b8ca6
   become: true
-  when: "not wsl_conf_is_installed.stat.exists"
+  when: 'not wsl_conf_is_installed.stat.exists'
   copy:
-    dest: "/etc/wsl.conf"
+    dest: '/etc/wsl.conf'
     content: |
       [boot]
       systemd=true
       [network]
       generateResolvConf = false
 
-- name: Link Windows's folder to WSL2 user
-  ansible.builtin.file:
-    src: "/mnt/c/PROJECTS"
-    dest: "{{ ansible_user_dir }}/projects"
-    state: link
-
 - name: Shutdown WSL (to restart WSL)
-  when: "not wsl_conf_is_installed.stat.exists"
+  when: 'not wsl_conf_is_installed.stat.exists'
   command: wsl.exe --shutdown
