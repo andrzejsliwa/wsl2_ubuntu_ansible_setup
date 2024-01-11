@@ -35,10 +35,27 @@
     #* FACTS
     - name: Set Docker repository and GPG key for Ubuntu or Debian
       set_fact:
-        docker_repository: "{% if 'Ubuntu' in ansible_distribution %}deb{% elif 'Debian' in ansible_distribution %}deb-src{% endif %} [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+        docker_repository: 'deb [arch={{  ansible_architecture  }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable'
         docker_gpg_key: 'https://download.docker.com/linux/{{ ansible_distribution|lower }}/gpg'
 
     #* ACTIONS
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        id: 0EBFCD88
+        url: '{{ docker_gpg_key }}'
+        keyring: '/etc/apt/keyrings/docker.gpg'
+
+    - name: Add the repository to Apt sources
+      lineinfile:
+        path: '/etc/apt/sources.list.d/docker.list'
+        create: yes
+        line: '{{ docker_repository }}'
+
+    - name: Update apt cache - 2
+      apt:
+        update_cache: yes
+
     - name: Ensure built-in docker is removed
       apt:
         pkg:
@@ -68,22 +85,6 @@
     #     id: 0EBFCD88
     #     url: https://download.docker.com/linux/ubuntu/gpg
     #     state: present
-
-    - name: Add Docker's official GPG key
-      apt_key:
-        id: 0EBFCD88
-        url: '{{ docker_gpg_key }}'
-        keyring: '/etc/apt/trusted.gpg.d/docker.gpg'
-
-    - name: Add the repository to Apt sources
-      lineinfile:
-        path: '/etc/apt/sources.list.d/docker.list'
-        create: yes
-        line: '{{ docker_repository }}'
-
-    - name: Update apt cache - 2
-      apt:
-        update_cache: yes
 
     - name: Install docker-ce
       apt:
