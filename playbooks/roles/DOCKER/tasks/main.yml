@@ -28,18 +28,21 @@
     #     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     #     update_cache: yes
 
-    - name: Install Docker apt repository on Ubuntu or Debian
-      when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
-      apt_repository:
-        repo: '{{ docker_repository }}'
-        update_cache: yes
-
-    - name: Import Docker GPG key
-      when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
-      ansible.builtin.apt_key:
+    - name: Add Docker's official GPG key
+      apt_key:
         id: 0EBFCD88
         url: '{{ docker_gpg_key }}'
-        state: present
+        keyring: '/etc/apt/trusted.gpg.d/docker.gpg'
+
+    - name: Add the repository to Apt sources
+      lineinfile:
+        path: '/etc/apt/sources.list.d/docker.list'
+        create: yes
+        line: '{{ docker_repository }}'
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
 
     - name: Install docker-ce
       apt:
