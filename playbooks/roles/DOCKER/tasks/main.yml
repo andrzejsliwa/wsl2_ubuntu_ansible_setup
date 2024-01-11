@@ -1,4 +1,34 @@
 ---
+#? Deiban docs - https://docs.docker.com/engine/install/debian/
+# # Add Docker's official GPG key:
+# sudo apt-get update
+# sudo apt-get install ca-certificates curl gnupg
+# sudo install -m 0755 -d /etc/apt/keyrings
+# curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# # Add the repository to Apt sources:
+# echo \
+#   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+#   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+#   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# sudo apt-get update
+
+# #? Ubuntu docs - https://docs.docker.com/engine/install/ubuntu/
+# # Add Docker's official GPG key:
+# sudo apt-get update
+# sudo apt-get install ca-certificates curl gnupg
+# sudo install -m 0755 -d /etc/apt/keyrings
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# # Add the repository to Apt sources:
+# echo \
+#   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+#   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+#   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# sudo apt-get update
+
 - name: Install packages
 
   block:
@@ -6,7 +36,7 @@
     - name: Set Docker repository and GPG key for Ubuntu or Debian
       set_fact:
         docker_repository: "{% if 'Ubuntu' in ansible_distribution %}deb{% elif 'Debian' in ansible_distribution %}deb-src{% endif %} [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
-        docker_gpg_key: "{% if 'Ubuntu' in ansible_distribution %}https://download.docker.com/linux/ubuntu/gpg{% elif 'Debian' in ansible_distribution %}https://download.docker.com/linux/debian/gpg{% endif %}"
+        docker_gpg_key: 'https://download.docker.com/linux/{{ ansible_distribution|lower }}/gpg'
 
     #* ACTIONS
     - name: Ensure built-in docker is removed
@@ -17,16 +47,27 @@
           - docker.io
         state: absent
 
+    - name: Update apt cache - 1
+      apt:
+        update_cache: yes
+
+    - name: Install dependencies
+      apt:
+        pkg:
+          - curl
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+          - libsecret-1-0
+          - libsecret-1-dev
+          - libglib2.0-dev
+          - gnupg
+
     # - name: Install docker GPG
     #   apt_key:
     #     id: 0EBFCD88
     #     url: https://download.docker.com/linux/ubuntu/gpg
     #     state: present
-
-    # - name: Install docker apt repository
-    #   apt_repository:
-    #     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-    #     update_cache: yes
 
     - name: Add Docker's official GPG key
       apt_key:
@@ -40,7 +81,7 @@
         create: yes
         line: '{{ docker_repository }}'
 
-    - name: Update apt cache
+    - name: Update apt cache - 2
       apt:
         update_cache: yes
 
@@ -48,17 +89,6 @@
       apt:
         name: docker-ce
         state: latest
-
-    - name: Install dependencies
-      apt:
-        pkg:
-          - curl
-          - apt-transport-https
-          - ca-certificates
-          - software-properties-common
-          - libsecret-1-0
-          - libsecret-1-dev
-          - libglib2.0-dev
 
     - name: Ensure python3-pip is installed
       become: true
