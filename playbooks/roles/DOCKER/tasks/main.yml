@@ -2,6 +2,13 @@
 - name: Install packages
 
   block:
+    #* FACTS
+    - name: Set Docker repository and GPG key for Ubuntu or Debian
+      set_fact:
+        docker_repository: "{% if 'Ubuntu' in ansible_distribution %}deb{% elif 'Debian' in ansible_distribution %}deb-src{% endif %} [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+        docker_gpg_key: "{% if 'Ubuntu' in ansible_distribution %}https://download.docker.com/linux/ubuntu/gpg{% elif 'Debian' in ansible_distribution %}https://download.docker.com/linux/debian/gpg{% endif %}"
+
+    #* ACTIONS
     - name: Ensure built-in docker is removed
       apt:
         pkg:
@@ -10,11 +17,11 @@
           - docker.io
         state: absent
 
-    - name: Install docker GPG
-      apt_key:
-        id: 0EBFCD88
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+    # - name: Install docker GPG
+    #   apt_key:
+    #     id: 0EBFCD88
+    #     url: https://download.docker.com/linux/ubuntu/gpg
+    #     state: present
 
     # - name: Install docker apt repository
     #   apt_repository:
@@ -24,8 +31,14 @@
     - name: Install Docker apt repository on Ubuntu or Debian
       when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
       apt_repository:
-        repo: "{% if 'Ubuntu' in ansible_distribution %}deb{% elif 'Debian' in ansible_distribution %}deb-src{% endif %} [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+        repo: '{{ docker_repository }}'
         update_cache: yes
+
+    - name: Import Docker GPG key
+      when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
+      ansible.builtin.apt_key:
+        url: '{{ docker_gpg_key }}'
+        state: present
 
     - name: Install docker-ce
       apt:
