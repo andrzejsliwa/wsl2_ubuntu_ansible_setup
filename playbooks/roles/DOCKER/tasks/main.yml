@@ -16,9 +16,15 @@
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    - name: Install docker apt repository
+    # - name: Install docker apt repository
+    #   apt_repository:
+    #     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    #     update_cache: yes
+
+    - name: Install Docker apt repository on Ubuntu or Debian
+      when: "'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution and 'apt' in ansible_pkg_mgr"
       apt_repository:
-        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        repo: "{% if 'Ubuntu' in ansible_distribution %}deb{% elif 'Debian' in ansible_distribution %}deb-src{% endif %} [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
         update_cache: yes
 
     - name: Install docker-ce
@@ -51,41 +57,41 @@
 
     - name: Check if docker-compose is installed
       stat:
-        path: "{{ compose_path }}"
+        path: '{{ compose_path }}'
       register: compose_is_installed
 
     - name: Check docker-compose version
-      when: "compose_is_installed.stat.exists"
-      command: "{{ compose_path }} version"
+      when: 'compose_is_installed.stat.exists'
+      command: '{{ compose_path }} version'
       register: compose_read_version
       changed_when: False
       failed_when: False
 
     - name: Install docker-compose
-      when: "not compose_is_installed.stat.exists or compose_version not in compose_read_version.stdout"
+      when: 'not compose_is_installed.stat.exists or compose_version not in compose_read_version.stdout'
       get_url:
-        url: "https://github.com/docker/compose/releases/download/v{{ compose_version }}/docker-compose-linux-x86_64"
-        dest: "{{ compose_path }}"
+        url: 'https://github.com/docker/compose/releases/download/v{{ compose_version }}/docker-compose-linux-x86_64'
+        dest: '{{ compose_path }}'
         owner: root
         group: root
         mode: +x
 
     - name: Check if docker-credential-helper is installed
       stat:
-        path: "{{ credential_path }}"
+        path: '{{ credential_path }}'
       register: credential_is_installed
 
     - name: Check docker-credential-helper version
-      when: "credential_is_installed.stat.exists"
-      command: "{{ credential_path }} version"
+      when: 'credential_is_installed.stat.exists'
+      command: '{{ credential_path }} version'
       register: credential_read_version
       changed_when: False
       failed_when: False
 
     - name: Install docker-credential-helpers
-      when: "not credential_is_installed.stat.exists or credential_version not in credential_read_version.stdout"
+      when: 'not credential_is_installed.stat.exists or credential_version not in credential_read_version.stdout'
       get_url:
-        url: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ credential_version }}/docker-credential-secretservice-v{{ credential_version }}.linux-amd64"
+        url: 'https://github.com/docker/docker-credential-helpers/releases/download/v{{ credential_version }}/docker-credential-secretservice-v{{ credential_version }}.linux-amd64'
         dest: /usr/local/bin/docker-credential-secretservice
         owner: root
         group: root
@@ -100,14 +106,14 @@
 
     - name: Check if deamon.json is created
       stat:
-        path: "/etc/docker/deamon.json"
+        path: '/etc/docker/deamon.json'
       register: docker_conf_is_installed
 
     - name: Configure Docker Deamon
       # become: true
       #when: "not docker_conf_is_installed.stat.exists"
       copy:
-        dest: "/etc/docker/deamon.json"
+        dest: '/etc/docker/deamon.json'
         content: |
           {
             "max-concurrent-downloads": 1,
