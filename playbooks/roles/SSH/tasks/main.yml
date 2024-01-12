@@ -1,20 +1,33 @@
 ---
-- name:  Check '~/.ssh' folder's permissions
+- name: Create '~/.ssh' folder if not exists
+  ansible.builtin.file:
+    path: '{{ ansible_env.HOME }}/.ssh'
+    state: directory
+
+- name: Copy files to '~/.ssh'
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '{{ ansible_env.HOME }}/.ssh/{{ item | basename }}'
+  with_fileglob:
+    - '{{ ssh_source_folder }}'
+  when: "'known_hosts' not in item.split('/')[-1] and 'config' not in item.split('/')[-1]"
+
+- name: Check '~/.ssh' folder's permissions
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.ssh"
+    path: '{{ ansible_env.HOME }}/.ssh'
   register: ssh_folder_stat
 
-- name:  Correct '~/.ssh' folder's permissions
+- name: Correct '~/.ssh' folder's permissions
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.ssh"
+    path: '{{ ansible_env.HOME }}/.ssh'
     recurse: yes
     state: directory
     mode: '0700'
   when: not ssh_folder_stat.stat.exists or ssh_folder_stat.stat.mode != '0700'
 
-- name:  Correct SSH config and key file permissions
+- name: Correct SSH config and key file permissions
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: '{{ item }}'
     mode: '0600'
   with_fileglob:
-    - "{{ ansible_env.HOME }}/.ssh/*"
+    - '{{ ansible_env.HOME }}/.ssh/*'
