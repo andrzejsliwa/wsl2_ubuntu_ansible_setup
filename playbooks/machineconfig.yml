@@ -4,32 +4,43 @@
         - include_role:
             name: SYSTEM
       name: System preparation
-      tags: sys
+      tags:
+        - wsl
+        - sys
+
     - block:
         - include_role:
             name: DOT
       name: Dot file creations
-      tags: dot
+      tags:
+        - wsl
+        - dot
+
     - block:
         - include_role:
             name: APT
       name: APT package management tasks
-      tags: apt
+      tags:
+        - wsl
+        - apt
+
     - block:
         - include_role:
             name: BREW
       name: BREW package management tasks
-      tags: brew
-
-    - become: true
-      become_method: sudo
-      block:
-        - include_role:
-            name: PYTHON
-      name: Python package management tasks
       tags:
         - wsl
-        - python
+        - brew
+
+    # - become: true
+    #   become_method: sudo
+    #   block:
+    #     - include_role:
+    #         name: PYTHON
+    #   name: Python package management tasks
+    #   tags:
+    #     - wsl
+    #     - python
 
     - block:
         - include_role:
@@ -45,6 +56,7 @@
       tags:
         - wsl
         - sys
+
     - block:
         - include_role:
             name: BASH
@@ -52,6 +64,7 @@
       tags:
         - wsl
         - bash
+
     - become: true
       become_method: sudo
       block:
@@ -61,6 +74,7 @@
       tags:
         - wsl
         - doc
+
     - block:
         - include_role:
             name: GIT
@@ -68,6 +82,7 @@
       tags:
         - wsl
         - git
+
     - block:
         - include_role:
             name: SSH
@@ -75,6 +90,7 @@
       tags:
         - wsl
         - ssh
+
     - block:
         - include_role:
             name: SPORTING
@@ -82,6 +98,7 @@
       tags:
         - wsl
         - sporting
+
     - block:
         - include_role:
             name: ZSH
@@ -89,6 +106,7 @@
       tags:
         - wsl
         - zsh
+
     - block:
         - include_role:
             name: NIX
