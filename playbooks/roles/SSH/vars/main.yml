@@ -1,0 +1,2 @@
+---
+ssh_source_folder: /mnt/c/Users/fsemti808/.ssh/* # FIXME: move this to the main block
